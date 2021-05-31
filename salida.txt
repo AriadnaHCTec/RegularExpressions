@@ -1,24 +1,12 @@
 ==================================================
 Token                         Tipo
 ==================================================
-b                             Variable
-=                             Asignación
-7                             Entero
-a                             Variable
-=                             Asignación
-32.4                          Flotante
-*                             Multiplicación
-(                             Paréntesis que abre
--8.6                          Flotante
--                             Resta
-b                             Variable
-)                             Paréntesis que cierra
-/                             División
-6.1E-8                        Flotante
-d                             Variable
-=                             Asignación
-a                             Variable
-^                             Potencia
-b                             Variable
-// Esto es un comentario      Comentario
+var                           Flotante
+                              Constante
+myvariable1                   Flotante
+                              Constante
+=                             Puntuacion
+                              Constante
+2                             Puntuacion
+0                             Puntuacion
 ==================================================
