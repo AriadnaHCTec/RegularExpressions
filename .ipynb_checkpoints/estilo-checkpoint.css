@@ -1,3 +1,47 @@
 body{
     background-color: black;    
 }
+
+#Entero{
+	color: red;
+}
+
+#Flotante{
+	color: green;
+}
+
+#Comentario{
+	color:aqua;
+}
+
+#Variable{
+	color:aquamarine;
+}
+
+#String{
+	color:bisque;	
+}
+
+#Asignacion{
+	color:yellow;
+}
+
+#Logico{
+	color:coral;
+}
+
+#Aritmetico{
+	color:cyan;
+}
+
+#Constante{
+	color:darkgoldenrod;
+}
+
+#Puntuacion{
+	color:darkmagenta;
+}
+
+#Invalido{
+	color:darkkhaki;
+}
