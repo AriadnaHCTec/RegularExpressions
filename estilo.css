@@ -3,31 +3,31 @@ body{
 }
 
 #Entero{
-	color: red;
+	color: rgb(255, 17, 235);
 }
 
 #Flotante{
-	color: green;
+	color: dodgerblue;
 }
 
 #Comentario{
-	color:aqua;
+	color:rgb(145, 133, 133);
 }
 
 #Variable{
-	color:aquamarine;
-}
-
-#String{
-	color:bisque;	
-}
-
-#Asignacion{
 	color:yellow;
 }
 
+#String{
+	color:orangered;	
+}
+
+#Asignacion{
+	color:white;
+}
+
 #Logico{
-	color:coral;
+	color:#D291DC;
 }
 
 #Aritmetico{
@@ -35,13 +35,13 @@ body{
 }
 
 #Constante{
-	color:darkgoldenrod;
+	color:rgb(13, 255, 45);
 }
 
 #Puntuacion{
-	color:darkmagenta;
+	color:salmon;
 }
 
 #Invalido{
-	color:darkkhaki;
+	color:red;
 }
