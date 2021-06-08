@@ -65,65 +65,6 @@
 <span id = 'Comentario'>// for x and the accuracy of the conversion.</span>
 <span id = 'Variable'>func</span> <span id = 'Variable'>NewFromFloat32</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Variable'>float32</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>Float</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>f</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>NewFromFloat64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>float64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>if</span> <span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>f</span><span id = 'Flotante'>.</span><span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>return</span> <span id = 'Variable'>f</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
-<span id = 'Puntuacion'>}</span>
-
-<span id = 'Comentario'>// NewFromFloat64 returns the nearest quadruple precision floating-point number</span>
-<span id = 'Comentario'>// for x and the accuracy of the conversion.</span>
-<span id = 'Variable'>func</span> <span id = 'Variable'>NewFromFloat64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Variable'>float64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>Float</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Comentario'>// +-NaN</span>
-	<span id = 'Variable'>switch</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>case</span> <span id = 'Variable'>math</span><span id = 'Flotante'>.</span><span id = 'Variable'>IsNaN</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>:</span>
-		<span id = 'Variable'>if</span> <span id = 'Variable'>math</span><span id = 'Flotante'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-			<span id = 'Comentario'>// -NaN</span>
-			<span id = 'Variable'>return</span> <span id = 'Variable'>NegNaN</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span>
-		<span id = 'Puntuacion'>}</span>
-		<span id = 'Comentario'>// +NaN</span>
-		<span id = 'Variable'>return</span> <span id = 'Variable'>NaN</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span>
-	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>y</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>y</span><span id = 'Flotante'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>y</span><span id = 'Flotante'>.</span><span id = 'Variable'>SetMode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>ToNearestEven</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Comentario'>// TODO: check accuracy after setting precision?</span>
-	<span id = 'Variable'>return</span> <span id = 'Variable'>NewFromBig</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>y</span><span id = 'Puntuacion'>)</span>
-<span id = 'Puntuacion'>}</span>
-
-<span id = 'Comentario'>// NewFromBig returns the nearest quadruple precision floating-point number for</span>
-<span id = 'Comentario'>// x and the accuracy of the conversion.</span>
-<span id = 'Variable'>func</span> <span id = 'Variable'>NewFromBig</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Float</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>Float</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Comentario'>// +-Inf</span>
-	<span id = 'Variable'>zero</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span><span id = 'Flotante'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>switch</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>case</span> <span id = 'Variable'>x</span><span id = 'Flotante'>.</span><span id = 'Variable'>IsInf</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>:</span>
-		<span id = 'Variable'>if</span> <span id = 'Variable'>x</span><span id = 'Flotante'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-			<span id = 'Comentario'>// -Inf</span>
-			<span id = 'Variable'>return</span> <span id = 'Variable'>NegInf</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span>
-		<span id = 'Puntuacion'>}</span>
-		<span id = 'Comentario'>// +Inf</span>
-		<span id = 'Variable'>return</span> <span id = 'Variable'>Inf</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span>
-	<span id = 'Comentario'>// +-zero</span>
-	<span id = 'Variable'>case</span> <span id = 'Variable'>x</span><span id = 'Flotante'>.</span><span id = 'Variable'>Cmp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>zero</span><span id = 'Puntuacion'>)</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>:</span>
-		<span id = 'Variable'>if</span> <span id = 'Variable'>x</span><span id = 'Flotante'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-			<span id = 'Comentario'>// -zero</span>
-			<span id = 'Variable'>return</span> <span id = 'Variable'>NegZero</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span>
-		<span id = 'Puntuacion'>}</span>
-		<span id = 'Comentario'>// +zero</span>
-		<span id = 'Variable'>return</span> <span id = 'Variable'>Zero</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span>
-	<span id = 'Puntuacion'>}</span>
-
-	<span id = 'Comentario'>// Sign</span>
-	<span id = 'Constante'>var</span> <span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span>
-	<span id = 'Variable'>if</span> <span id = 'Variable'>x</span><span id = 'Flotante'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Entero'>0x8000000000000000</span>
-	<span id = 'Puntuacion'>}</span>
-
-	<span id = 'Comentario'>// Exponent and mantissa.</span>
-	<span id = 'Variable'>mant</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>new</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Float</span><span id = 'Puntuacion'>)</span><span id = 'Flotante'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>exponent</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>x</span><span id = 'Flotante'>.</span><span id = 'Variable'>MantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Comentario'>// Remove 1 from the exponent as big.Float has an no lead bit.</span>
-        </pre>
+	<span id = 'Variable'>if</span> <span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Flotante'>.</span><span id = 'Variable'>Exact</span> <span id = 'Puntuacion'>{</span>        </pre>
     </body>
 </html>    
