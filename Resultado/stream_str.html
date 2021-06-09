@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+        <title>Analisis_Lexico</title>
+        <link rel="stylesheet" href="estilo.css" type="text/css">        
+    </head>    
+    <body>
+        <pre><span id = 'Variable'>package</span> <span id = 'Variable'>jsoniter</span>
+
+<span id = 'Constante'>import</span> <span id = 'Puntuacion'>(</span>
+	<span id = 'String'>"unicode/utf8"</span>
+<span id = 'Puntuacion'>)</span>
+
+<span id = 'Comentario'>// htmlSafeSet holds the value true if the ASCII character with the given</span>
+<span id = 'Comentario'>// array position can be safely represented inside a JSON string, embedded</span>
+<span id = 'Comentario'>// inside of HTML &ltscript&gt tags, without any additional escaping.</span>
+<span id = 'Comentario'>//</span>
+<span id = 'Comentario'>// All values are true except for the ASCII control characters (0-31), the</span>
+<span id = 'Comentario'>// double quote ("), the backslash character ("\"), HTML opening and closing</span>
+<span id = 'Comentario'>// tags ("&lt" and "&gt"), and the ampersand ("&amp").</span>
+<span id = 'Constante'>var</span> <span id = 'Variable'>htmlSafeSet</span> <span id = 'Asignacion'>=</span> <span id = 'Invalido'>[</span><span id = 'Variable'>utf8</span><span id = 'Flotante'>.</span><span id = 'Variable'>RuneSelf</span><span id = 'Invalido'>]</span><span id = 'Variable'>bool</span><span id = 'Puntuacion'>{</span>
+	<span id = 'Invalido'>'</span> <span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Logico'>!</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'String'>"':      false,
+	'#':      true,
+	'$':      true,
+	'%':      true,
+	'&amp':      false,
+	'\'':     true,
+	'(':      true,
+	')':      true,
+	'*':      true,
+	'+':      true,
+	',':      true,
+	'-':      true,
+	'.':      true,
+	'/':      true,
+	'0':      true,
+	'1':      true,
+	'2':      true,
+	'3':      true,
+	'4':      true,
+	'5':      true,
+	'6':      true,
+	'7':      true,
+	'8':      true,
+	'9':      true,
+	':':      true,
+	';':      true,
+	'&lt':      false,
+	'=':      true,
+	'&gt':      false,
+	'?':      true,
+	'@':      true,
+	'A':      true,
+	'B':      true,
+	'C':      true,
+	'D':      true,
+	'E':      true,
+	'F':      true,
+	'G':      true,
+	'H':      true,
+	'I':      true,
+	'J':      true,
+	'K':      true,
+	'L':      true,
+	'M':      true,
+	'N':      true,
+	'O':      true,
+	'P':      true,
+	'Q':      true,
+	'R':      true,
+	'S':      true,
+	'T':      true,
+	'U':      true,
+	'V':      true,
+	'W':      true,
+	'X':      true,
+	'Y':      true,
+	'Z':      true,
+	'[':      true,
+	'\\':     false,
+	']':      true,
+	'^':      true,
+	'_':      true,
+	'`':      true,
+	'a':      true,
+	'b':      true,
+	'c':      true,
+	'd':      true,
+	'e':      true,
+	'f':      true,
+	'g':      true,
+	'h':      true,
+	'i':      true,
+	'j':      true,
+	'k':      true,
+	'l':      true,
+	'm':      true,
+	'n':      true,
+	'o':      true,
+	'p':      true,
+	'q':      true,
+	'r':      true,
+	's':      true,
+	't':      true,
+	'u':      true,
+	'v':      true,
+	'w':      true,
+	'x':      true,
+	'y':      true,
+	'z':      true,
+	'{':      true,
+	'|':      true,
+	'}':      true,
+	'~':      true,
+	'\u007f': true,
+}
+
+// safeSet holds the value true if the ASCII character with the given array
+// position can be represented inside a JSON string without any further
+// escaping.
+//
+// All values are true except for the ASCII control characters (0-31), the
+// double quote ("</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>and</span> <span id = 'Variable'>the</span> <span id = 'Variable'>backslash</span> <span id = 'Variable'>character</span> <span id = 'Puntuacion'>(</span><span id = 'String'>"\").
+var safeSet = [utf8.RuneSelf]bool{
+	' ':      true,
+	'!':      true,
+	'"</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>false</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>#</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>$</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>%</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>&amp</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>\</span><span id = 'Invalido'>'</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>     <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Puntuacion'>(</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>*</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>+</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>,</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>-</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Flotante'>.</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>/</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>0</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>1</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>2</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>3</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>4</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>5</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>6</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>7</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>8</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Entero'>9</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>:</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>;</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>&lt</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Asignacion'>=</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>&gt</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>?</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>@</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>A</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>B</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>C</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>D</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>E</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>F</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>G</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>H</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>I</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>J</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>K</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>L</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>M</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>N</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>O</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>P</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>Q</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>R</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>S</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>T</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>U</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>V</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>W</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>X</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>Y</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>Z</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>[</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>\</span><span id = 'Invalido'>\</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>     <span id = 'Constante'>false</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>]</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>^</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Variable'>_</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'String'>`':      true,
+	'a':      true,
+	'b':      true,
+	'c':      true,
+	'd':      true,
+	'e':      true,
+	'f':      true,
+	'g':      true,
+	'h':      true,
+	'i':      true,
+	'j':      true,
+	'k':      true,
+	'l':      true,
+	'm':      true,
+	'n':      true,
+	'o':      true,
+	'p':      true,
+	'q':      true,
+	'r':      true,
+	's':      true,
+	't':      true,
+	'u':      true,
+	'v':      true,
+	'w':      true,
+	'x':      true,
+	'y':      true,
+	'z':      true,
+	'{':      true,
+	'|':      true,
+	'}':      true,
+	'~':      true,
+	'\u007f': true,
+}
+
+var hex = "0123456789abcdef"
+
+// WriteStringWithHTMLEscaped write string to stream with html special characters escaped
+func (stream *Stream) WriteStringWithHTMLEscaped(s string) {
+	valLen := len(s)
+	stream.buf = append(stream.buf, '"')
+	// write string, the fast path, without utf8 and escape support
+	i := 0
+	for ; i &lt valLen; i++ {
+		c := s[i]
+		if c &lt utf8.RuneSelf &amp&amp htmlSafeSet[c] {
+			stream.buf = append(stream.buf, c)
+		} else {
+			break
+		}
+	}
+	if i == valLen {
+		stream.buf = append(stream.buf, '"')
+		return
+	}
+	writeStringSlowPathWithHTMLEscaped(stream, i, s, valLen)
+}
+
+func writeStringSlowPathWithHTMLEscaped(stream *Stream, i int, s string, valLen int) {
+	start := i
+	// for the remaining parts, we process them char by char
+	for i &lt valLen {
+		if b := s[i]; b &lt utf8.RuneSelf {
+			if htmlSafeSet[b] {
+				i++
+				continue
+			}
+			if start &lt i {
+				stream.WriteRaw(s[start:i])
+			}
+			switch b {
+			case '\\', '"':
+				stream.writeTwoBytes('\\', b)
+			case '\n':
+				stream.writeTwoBytes('\\', 'n')
+			case '\r':
+				stream.writeTwoBytes('\\', 'r')
+			case '\t':
+				stream.writeTwoBytes('\\', 't')
+			default:
+				// This encodes bytes &lt 0x20 except for \t, \n and \r.
+				// If escapeHTML is set, it also escapes &lt, &gt, and &amp
+				// because they can lead to security holes when
+				// user-controlled strings are rendered into JSON
+				// and served to some browsers.
+				stream.WriteRaw(`</span><span id = 'Invalido'>\</span><span id = 'Variable'>u00</span><span id = 'String'>`)
+				stream.writeTwoBytes(hex[b&gt&gt4], hex[b&amp0xF])
+			}
+			i++
+			start = i
+			continue
+		}
+		c, size := utf8.DecodeRuneInString(s[i:])
+		if c == utf8.RuneError &amp&amp size == 1 {
+			if start &lt i {
+				stream.WriteRaw(s[start:i])
+			}
+			stream.WriteRaw(`</span><span id = 'Invalido'>\</span><span id = 'Variable'>ufffd</span><span id = 'String'>`)
+			i++
+			start = i
+			continue
+		}
+		// U+2028 is LINE SEPARATOR.
+		// U+2029 is PARAGRAPH SEPARATOR.
+		// They are both technically valid characters in JSON strings,
+		// but don't work in JSONP, which has to be evaluated as JavaScript,
+		// and can lead to security holes there. It is valid JSON to
+		// escape them, so we do so unconditionally.
+		// See http://timelessrepo.com/json-isnt-a-javascript-subset for discussion.
+		if c == '\u2028' || c == '\u2029' {
+			if start &lt i {
+				stream.WriteRaw(s[start:i])
+			}
+			stream.WriteRaw(`</span><span id = 'Invalido'>\</span><span id = 'Variable'>u202</span><span id = 'String'>`)
+			stream.writeByte(hex[c&amp0xF])
+			i += size
+			start = i
+			continue
+		}
+		i += size
+	}
+	if start &lt len(s) {
+		stream.WriteRaw(s[start:])
+	}
+	stream.writeByte('"')
+}
+
+// WriteString write string to stream without html escape
+func (stream *Stream) WriteString(s string) {
+	valLen := len(s)
+	stream.buf = append(stream.buf, '"')
+	// write string, the fast path, without utf8 and escape support
+	i := 0
+	for ; i &lt valLen; i++ {
+		c := s[i]
+		if c &gt 31 &amp&amp c != '"' &amp&amp c != '\\' {
+			stream.buf = append(stream.buf, c)
+		} else {
+			break
+		}
+	}
+	if i == valLen {
+		stream.buf = append(stream.buf, '"')
+		return
+	}
+	writeStringSlowPath(stream, i, s, valLen)
+}
+
+func writeStringSlowPath(stream *Stream, i int, s string, valLen int) {
+	start := i
+	// for the remaining parts, we process them char by char
+	for i &lt valLen {
+		if b := s[i]; b &lt utf8.RuneSelf {
+			if safeSet[b] {
+				i++
+				continue
+			}
+			if start &lt i {
+				stream.WriteRaw(s[start:i])
+			}
+			switch b {
+			case '\\', '"':
+				stream.writeTwoBytes('\\', b)
+			case '\n':
+				stream.writeTwoBytes('\\', 'n')
+			case '\r':
+				stream.writeTwoBytes('\\', 'r')
+			case '\t':
+				stream.writeTwoBytes('\\', 't')
+			default:
+				// This encodes bytes &lt 0x20 except for \t, \n and \r.
+				// If escapeHTML is set, it also escapes &lt, &gt, and &amp
+				// because they can lead to security holes when
+				// user-controlled strings are rendered into JSON
+				// and served to some browsers.
+				stream.WriteRaw(`</span><span id = 'Invalido'>\</span><span id = 'Variable'>u00</span><span id = 'Invalido'>`</span><span id = 'Puntuacion'>)</span>
+				<span id = 'Variable'>stream</span><span id = 'Flotante'>.</span><span id = 'Variable'>writeTwoBytes</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>hex</span><span id = 'Invalido'>[</span><span id = 'Variable'>b</span><span id = 'Aritmetico'>&gt&gt</span><span id = 'Entero'>4</span><span id = 'Invalido'>]</span><span id = 'Invalido'>,</span> <span id = 'Variable'>hex</span><span id = 'Invalido'>[</span><span id = 'Variable'>b</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0xF</span><span id = 'Invalido'>]</span><span id = 'Puntuacion'>)</span>
+			<span id = 'Puntuacion'>}</span>
+			<span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
+			<span id = 'Variable'>start</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>i</span>
+			<span id = 'Variable'>continue</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
+		<span id = 'Variable'>continue</span>
+	<span id = 'Puntuacion'>}</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>start</span> <span id = 'Invalido'>&lt</span> <span id = 'Variable'>len</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>stream</span><span id = 'Flotante'>.</span><span id = 'Variable'>WriteRaw</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Invalido'>[</span><span id = 'Variable'>start</span><span id = 'Invalido'>:</span><span id = 'Invalido'>]</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Puntuacion'>}</span>
+	<span id = 'Variable'>stream</span><span id = 'Flotante'>.</span><span id = 'Variable'>writeByte</span><span id = 'Puntuacion'>(</span><span id = 'Invalido'>'</span><span id = 'Invalido'>"</span><span id = 'Invalido'>'</span><span id = 'Puntuacion'>)</span>
+<span id = 'Puntuacion'>}</span>        </pre>
+    </body>
+</html>    

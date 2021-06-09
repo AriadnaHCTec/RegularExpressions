@@ -2,15 +2,15 @@ body{
     background-color: black;    
 }
 
-#Entero{
+#Entero{/*Morado*/
 	color: rgb(255, 17, 235);
 }
 
-#Flotante{
+#Flotante{/*Azul*/
 	color: dodgerblue;
 }
 
-#Comentario{
+#Comentario{/*Gris*/
 	color:rgb(145, 133, 133);
 }
 
@@ -30,18 +30,18 @@ body{
 	color:#D291DC;
 }
 
-#Aritmetico{
+#Aritmetico{ /*Azul clarito*/
 	color:cyan;
 }
 
-#Constante{
+#Constante{ /*verde*/
 	color:rgb(13, 255, 45);
 }
 
-#Puntuacion{
+#Puntuacion{ /*naranja*/
 	color:salmon;
 }
 
-#Invalido{
+#Invalido{ /*rojo*/
 	color:red;
 }
