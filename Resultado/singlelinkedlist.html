@@ -29,12 +29,12 @@
 
 <span id = 'Comentario'>// GetNext returns next of node</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>n</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>GetNext</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>return</span> <span id = 'Variable'>n</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Constante'>return</span> <span id = 'Variable'>n</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// GetValue returns value of node</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>n</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>GetValue</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Constante'>in</span><span id = 'Variable'>terface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>return</span> <span id = 'Variable'>n</span><span id = 'Flotante'>.</span><span id = 'Variable'>value</span>
+	<span id = 'Constante'>return</span> <span id = 'Variable'>n</span><span id = 'Invalido'>.</span><span id = 'Variable'>value</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// NewLinkedList creates a empty linked-list</span>
@@ -53,27 +53,27 @@
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>new</span><span id = 'Variable'>Node</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>New</span><span id = 'Variable'>ListNode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>v</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>oldNext</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-	<span id = 'Variable'>p</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Variable'>Node</span>
-	<span id = 'Constante'>new</span><span id = 'Variable'>Node</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>oldNext</span>
-	<span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>length</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
+	<span id = 'Variable'>oldNext</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>p</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Variable'>Node</span>
+	<span id = 'Constante'>new</span><span id = 'Variable'>Node</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>oldNext</span>
+	<span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>length</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
 	<span id = 'Constante'>return</span> <span id = 'Constante'>true</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// InsertBefore inserts new node before node p</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Constante'>In</span><span id = 'Variable'>sertBefore</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>p</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span><span id = 'Invalido'>,</span> <span id = 'Variable'>v</span> <span id = 'Constante'>in</span><span id = 'Variable'>terface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>p</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>p</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>p</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>p</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Constante'>false</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-	<span id = 'Variable'>pre</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>pre</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>cur</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>if</span> <span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>break</span>
 		<span id = 'Puntuacion'>}</span>
 		<span id = 'Variable'>pre</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span>
-		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>if</span> <span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
@@ -81,37 +81,37 @@
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>new</span><span id = 'Variable'>Node</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>New</span><span id = 'Variable'>ListNode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>v</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>pre</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Variable'>Node</span>
-	<span id = 'Constante'>new</span><span id = 'Variable'>Node</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span>
-	<span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>length</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
+	<span id = 'Variable'>pre</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Variable'>Node</span>
+	<span id = 'Constante'>new</span><span id = 'Variable'>Node</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span>
+	<span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>length</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
 	<span id = 'Constante'>return</span> <span id = 'Constante'>true</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// InsertToHead inserts new node after head</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Constante'>In</span><span id = 'Variable'>sertToHead</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>v</span> <span id = 'Constante'>in</span><span id = 'Variable'>terface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>return</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Constante'>In</span><span id = 'Variable'>sertAfter</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>,</span> <span id = 'Variable'>v</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>return</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Constante'>In</span><span id = 'Variable'>sertAfter</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>,</span> <span id = 'Variable'>v</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// InsertToTail inserts new node to tail</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Constante'>In</span><span id = 'Variable'>sertToTail</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>v</span> <span id = 'Constante'>in</span><span id = 'Variable'>terface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
-	<span id = 'Constante'>for</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Constante'>for</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Constante'>return</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Constante'>In</span><span id = 'Variable'>sertAfter</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>cur</span><span id = 'Invalido'>,</span> <span id = 'Variable'>v</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>return</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Constante'>In</span><span id = 'Variable'>sertAfter</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>cur</span><span id = 'Invalido'>,</span> <span id = 'Variable'>v</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// FindByIndex returns node by index</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>FindByIndex</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>dex</span> <span id = 'Constante'>in</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Constante'>in</span><span id = 'Variable'>dex</span> <span id = 'Invalido'>&gt</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>length</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Constante'>in</span><span id = 'Variable'>dex</span> <span id = 'Invalido'>&gt</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>length</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>nil</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Comentario'>//head not store value</span>
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Constante'>in</span><span id = 'Variable'>dex</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 	<span id = 'Constante'>return</span> <span id = 'Variable'>cur</span>
 <span id = 'Puntuacion'>}</span>
@@ -121,65 +121,65 @@
 	<span id = 'Constante'>if</span> <span id = 'Variable'>nil</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Constante'>false</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-	<span id = 'Variable'>pre</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>pre</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>if</span> <span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>break</span>
 		<span id = 'Puntuacion'>}</span>
 		<span id = 'Variable'>pre</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span>
-		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>nil</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Constante'>false</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>pre</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>pre</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>p</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Variable'>p</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span>
-	<span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>length</span><span id = 'Aritmetico'>-</span><span id = 'Aritmetico'>-</span>
+	<span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>length</span><span id = 'Aritmetico'>-</span><span id = 'Aritmetico'>-</span>
 	<span id = 'Constante'>return</span> <span id = 'Constante'>true</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Print prints linked-list</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Print</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Constante'>for</span><span id = 'Variable'>mat</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'String'>""</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>for</span><span id = 'Variable'>mat</span> <span id = 'Asignacion'>+=</span> <span id = 'Variable'>fmt</span><span id = 'Flotante'>.</span><span id = 'Variable'>Sprintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"%+v"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>GetValue</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span>
-		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Constante'>for</span><span id = 'Variable'>mat</span> <span id = 'Asignacion'>+=</span> <span id = 'Variable'>fmt</span><span id = 'Invalido'>.</span><span id = 'Variable'>Sprintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"%+v"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>GetValue</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 		<span id = 'Constante'>if</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>for</span><span id = 'Variable'>mat</span> <span id = 'Asignacion'>+=</span> <span id = 'String'>"-&gt"</span>
 		<span id = 'Puntuacion'>}</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>fmt</span><span id = 'Flotante'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>for</span><span id = 'Variable'>mat</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>fmt</span><span id = 'Invalido'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>for</span><span id = 'Variable'>mat</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Reverse reverses the linked-list.</span>
 <span id = 'Comentario'>//</span>
 <span id = 'Comentario'>// Time complexity is O(n)</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Reverse</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>var</span> <span id = 'Variable'>pre</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span>
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>cur</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>tmp</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-		<span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>pre</span>
+		<span id = 'Variable'>tmp</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>pre</span>
 		<span id = 'Variable'>pre</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span>
 		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>tmp</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>pre</span>
+	<span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>pre</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// HasCycle judges linked-list if it is cycled-list</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>HasCycle</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>slow</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
-		<span id = 'Variable'>fast</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
-		<span id = 'Constante'>for</span> <span id = 'Variable'>fast</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-			<span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-			<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>slow</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
+		<span id = 'Variable'>fast</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
+		<span id = 'Constante'>for</span> <span id = 'Variable'>fast</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+			<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 			<span id = 'Constante'>if</span> <span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span> <span id = 'Puntuacion'>{</span>
 				<span id = 'Constante'>return</span> <span id = 'Constante'>true</span>
 			<span id = 'Puntuacion'>}</span>
@@ -190,11 +190,11 @@
 
 <span id = 'Comentario'>// MergeSortedList merges two sorted list</span>
 <span id = 'Constante'>func</span> <span id = 'Variable'>MergeSortedList</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>l1</span><span id = 'Invalido'>,</span> <span id = 'Variable'>l2</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>l1</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l1</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l1</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>l1</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l1</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l1</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>l2</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Constante'>if</span> <span id = 'Variable'>l2</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l2</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l2</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>l2</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l2</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l2</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>l1</span>
 	<span id = 'Puntuacion'>}</span>
 
@@ -206,24 +206,24 @@
 		<span id = 'Variable'>length</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Variable'>List</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
-	<span id = 'Variable'>cur1</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l1</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-	<span id = 'Variable'>cur2</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l2</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>cur</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Variable'>List</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Variable'>cur1</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l1</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>cur2</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l2</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>cur1</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>cur2</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>if</span> <span id = 'Variable'>cur1</span><span id = 'Flotante'>.</span><span id = 'Variable'>value</span><span id = 'Flotante'>.</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span><span id = 'Flotante'>.</span><span id = 'Variable'>value</span><span id = 'Flotante'>.</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-			<span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur1</span>
-			<span id = 'Variable'>cur1</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur1</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Constante'>if</span> <span id = 'Variable'>cur1</span><span id = 'Invalido'>.</span><span id = 'Variable'>value</span><span id = 'Invalido'>.</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span><span id = 'Invalido'>.</span><span id = 'Variable'>value</span><span id = 'Invalido'>.</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur1</span>
+			<span id = 'Variable'>cur1</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur1</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 		<span id = 'Puntuacion'>}</span> <span id = 'Variable'>else</span> <span id = 'Puntuacion'>{</span>
-			<span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span>
-			<span id = 'Variable'>cur2</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+			<span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span>
+			<span id = 'Variable'>cur2</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 		<span id = 'Puntuacion'>}</span>
-		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>cur</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>if</span> <span id = 'Variable'>cur1</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur1</span>
+		<span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur1</span>
 	<span id = 'Puntuacion'>}</span> <span id = 'Variable'>else</span> <span id = 'Constante'>if</span> <span id = 'Variable'>cur2</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>cur</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span>
+		<span id = 'Variable'>cur</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>cur2</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>return</span> <span id = 'Constante'>new</span><span id = 'Variable'>List</span>
@@ -232,13 +232,13 @@
 
 <span id = 'Comentario'>// DeleteBottomN deletes The bottom NTH node</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>DeleteBottomN</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>n</span> <span id = 'Constante'>in</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>n</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>n</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>fast</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Variable'>fast</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
 	<span id = 'Constante'>for</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>1</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>n</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>fast</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>if</span> <span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
@@ -247,27 +247,27 @@
 
 	<span id = 'Comentario'>// \-----n(fast)--------n-------\</span>
 	<span id = 'Comentario'>// \-----n--------n(slow)-------\(fast)</span>
-	<span id = 'Variable'>slow</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
-	<span id = 'Constante'>for</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-		<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>slow</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Constante'>for</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>slow</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>slow</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// FindMiddleNode returns middle node</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>l</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>LinkedList</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>FindMiddleNode</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>ListNode</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>||</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>nil</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>return</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Constante'>return</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>slow</span><span id = 'Invalido'>,</span> <span id = 'Variable'>fast</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>,</span> <span id = 'Variable'>l</span><span id = 'Flotante'>.</span><span id = 'Variable'>head</span>
-	<span id = 'Constante'>for</span> <span id = 'Variable'>fast</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
-		<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span><span id = 'Flotante'>.</span><span id = 'Variable'>next</span>
+	<span id = 'Variable'>slow</span><span id = 'Invalido'>,</span> <span id = 'Variable'>fast</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span><span id = 'Invalido'>,</span> <span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>head</span>
+	<span id = 'Constante'>for</span> <span id = 'Variable'>fast</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>slow</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>slow</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
+		<span id = 'Variable'>fast</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>fast</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span><span id = 'Invalido'>.</span><span id = 'Variable'>next</span>
 	<span id = 'Puntuacion'>}</span>
 	<span id = 'Constante'>return</span> <span id = 'Variable'>slow</span>
 <span id = 'Puntuacion'>}</span>        </pre>

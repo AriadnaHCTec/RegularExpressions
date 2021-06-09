@@ -19,7 +19,7 @@
 <span id = 'Comentario'>// All values are true except for the ASCII control characters (0-31), the</span>
 <span id = 'Comentario'>// double quote ("), the backslash character ("\"), HTML opening and closing</span>
 <span id = 'Comentario'>// tags ("&lt" and "&gt"), and the ampersand ("&amp").</span>
-<span id = 'Constante'>var</span> <span id = 'Variable'>htmlSafeSet</span> <span id = 'Asignacion'>=</span> <span id = 'Invalido'>[</span><span id = 'Variable'>utf8</span><span id = 'Flotante'>.</span><span id = 'Variable'>RuneSelf</span><span id = 'Invalido'>]</span><span id = 'Variable'>bool</span><span id = 'Puntuacion'>{</span>
+<span id = 'Constante'>var</span> <span id = 'Variable'>htmlSafeSet</span> <span id = 'Asignacion'>=</span> <span id = 'Invalido'>[</span><span id = 'Variable'>utf8</span><span id = 'Invalido'>.</span><span id = 'Variable'>RuneSelf</span><span id = 'Invalido'>]</span><span id = 'Variable'>bool</span><span id = 'Puntuacion'>{</span>
 	<span id = 'Invalido'>'</span> <span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'Logico'>!</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'String'>"':      false,
@@ -139,7 +139,7 @@ var safeSet = [utf8.RuneSelf]bool{
 	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>+</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'Invalido'>,</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>-</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
-	<span id = 'Invalido'>'</span><span id = 'Flotante'>.</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
+	<span id = 'Invalido'>'</span><span id = 'Invalido'>.</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'Aritmetico'>/</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'Entero'>0</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
 	<span id = 'Invalido'>'</span><span id = 'Entero'>1</span><span id = 'Invalido'>'</span><span id = 'Invalido'>:</span>      <span id = 'Constante'>true</span><span id = 'Invalido'>,</span>
@@ -364,7 +364,7 @@ func writeStringSlowPath(stream *Stream, i int, s string, valLen int) {
 				// user-controlled strings are rendered into JSON
 				// and served to some browsers.
 				stream.WriteRaw(`</span><span id = 'Invalido'>\</span><span id = 'Variable'>u00</span><span id = 'Invalido'>`</span><span id = 'Puntuacion'>)</span>
-				<span id = 'Variable'>stream</span><span id = 'Flotante'>.</span><span id = 'Variable'>writeTwoBytes</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>hex</span><span id = 'Invalido'>[</span><span id = 'Variable'>b</span><span id = 'Aritmetico'>&gt&gt</span><span id = 'Entero'>4</span><span id = 'Invalido'>]</span><span id = 'Invalido'>,</span> <span id = 'Variable'>hex</span><span id = 'Invalido'>[</span><span id = 'Variable'>b</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0xF</span><span id = 'Invalido'>]</span><span id = 'Puntuacion'>)</span>
+				<span id = 'Variable'>stream</span><span id = 'Invalido'>.</span><span id = 'Variable'>writeTwoBytes</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>hex</span><span id = 'Invalido'>[</span><span id = 'Variable'>b</span><span id = 'Aritmetico'>&gt&gt</span><span id = 'Entero'>4</span><span id = 'Invalido'>]</span><span id = 'Invalido'>,</span> <span id = 'Variable'>hex</span><span id = 'Invalido'>[</span><span id = 'Variable'>b</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0xF</span><span id = 'Invalido'>]</span><span id = 'Puntuacion'>)</span>
 			<span id = 'Puntuacion'>}</span>
 			<span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
 			<span id = 'Variable'>start</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>i</span>
@@ -374,9 +374,9 @@ func writeStringSlowPath(stream *Stream, i int, s string, valLen int) {
 		<span id = 'Variable'>continue</span>
 	<span id = 'Puntuacion'>}</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>start</span> <span id = 'Invalido'>&lt</span> <span id = 'Variable'>len</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>stream</span><span id = 'Flotante'>.</span><span id = 'Variable'>WriteRaw</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Invalido'>[</span><span id = 'Variable'>start</span><span id = 'Invalido'>:</span><span id = 'Invalido'>]</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>stream</span><span id = 'Invalido'>.</span><span id = 'Variable'>WriteRaw</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Invalido'>[</span><span id = 'Variable'>start</span><span id = 'Invalido'>:</span><span id = 'Invalido'>]</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>stream</span><span id = 'Flotante'>.</span><span id = 'Variable'>writeByte</span><span id = 'Puntuacion'>(</span><span id = 'Invalido'>'</span><span id = 'Invalido'>"</span><span id = 'Invalido'>'</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>stream</span><span id = 'Invalido'>.</span><span id = 'Variable'>writeByte</span><span id = 'Puntuacion'>(</span><span id = 'Invalido'>'</span><span id = 'Invalido'>"</span><span id = 'Invalido'>'</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>        </pre>
     </body>
 </html>    
