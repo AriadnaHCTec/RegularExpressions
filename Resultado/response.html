@@ -156,8 +156,8 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Constante'>func</span> <span id = 'Constante'>New</span><span id = 'Variable'>FaceResponse</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>FaceResponse</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>ret</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>FaceResponse</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>ret</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>FaceResponse</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>log</span><span id = 'Invalido'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'String'>"json unmarshal err:"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>nil</span>
@@ -171,8 +171,8 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Constante'>func</span> <span id = 'Constante'>New</span><span id = 'Variable'>SimilarResponse</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>SimilarResponse</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>ret</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>SimilarResponse</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>ret</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>SimilarResponse</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>log</span><span id = 'Invalido'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'String'>"json unmarshal err:"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>nil</span>
@@ -186,8 +186,8 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Constante'>func</span> <span id = 'Constante'>New</span><span id = 'Variable'>GroupResponse</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>GroupResponse</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>ret</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>GroupResponse</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>ret</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>GroupResponse</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>log</span><span id = 'Invalido'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'String'>"json unmarshal err:"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>nil</span>
@@ -201,8 +201,8 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Constante'>func</span> <span id = 'Constante'>New</span><span id = 'Variable'>VerifyResponse</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>VerifyResponse</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>ret</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>VerifyResponse</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>ret</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>VerifyResponse</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>raw</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>ret</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>log</span><span id = 'Invalido'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'String'>"json unmarshal err:"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>ret</span>

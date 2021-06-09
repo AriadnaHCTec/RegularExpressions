@@ -23,9 +23,9 @@
 
 <span id = 'Comentario'>// New returns new Calculator whose argument is arithmetic expressions to be calculated.</span>
 <span id = 'Constante'>func</span> <span id = 'Constante'>New</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>put</span> <span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>Calculator</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>in</span><span id = 'Variable'>terpret</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>new</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>Calculator</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>in</span><span id = 'Variable'>terpret</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>Calculator</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>in</span><span id = 'Variable'>terpret</span><span id = 'Invalido'>.</span><span id = 'Constante'>in</span><span id = 'Variable'>put</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>in</span><span id = 'Variable'>put</span>
-	<span id = 'Variable'>lexer</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>New</span><span id = 'Variable'>Lexer</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>put</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>lexer</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>New</span><span id = 'Variable'>Lexer</span><span id = 'Puntuacion'>(</span><span id = 'Constante'>in</span><span id = 'Variable'>put</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>in</span><span id = 'Variable'>terpret</span><span id = 'Invalido'>.</span><span id = 'Variable'>lexer</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>lexer</span>
 	<span id = 'Constante'>in</span><span id = 'Variable'>terpret</span><span id = 'Invalido'>.</span><span id = 'Variable'>lexer</span><span id = 'Invalido'>.</span><span id = 'Variable'>Scan</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>return</span> <span id = 'Constante'>in</span><span id = 'Variable'>terpret</span>
@@ -71,18 +71,18 @@
 <span id = 'Comentario'>// grammar: NUM | VAR | LPARAN expr RPARAN</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>c</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>Calculator</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>factor</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>float</span><span id = 'Entero'>64</span><span id = 'Invalido'>,</span> <span id = 'Variable'>error</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 
-	<span id = 'Variable'>token</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>token</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 
 	<span id = 'Comentario'>// For parantheses case</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>token</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>TokenTypeLPARAN</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeLPARAN</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeLPARAN</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 		<span id = 'Puntuacion'>}</span>
-		<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>expr</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>expr</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 		<span id = 'Puntuacion'>}</span>
-		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeRPARAN</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeRPARAN</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 		<span id = 'Puntuacion'>}</span>
 		<span id = 'Constante'>return</span> <span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nil</span>
@@ -90,11 +90,11 @@
 
 	<span id = 'Comentario'>// For variable case</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>token</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>TokenTypeVAR</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeVAR</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeVAR</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 		<span id = 'Puntuacion'>}</span>
 
-		<span id = 'Variable'>value</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>value</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>token</span><span id = 'Invalido'>.</span><span id = 'Variable'>Value</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>value</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>value</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>token</span><span id = 'Invalido'>.</span><span id = 'Variable'>Value</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 		<span id = 'Puntuacion'>}</span>
@@ -102,11 +102,11 @@
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Comentario'>// For number case</span>
-	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeNUM</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeNUM</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>strconv</span><span id = 'Invalido'>.</span><span id = 'Variable'>ParseFloat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>token</span><span id = 'Invalido'>.</span><span id = 'Variable'>Value</span><span id = 'Invalido'>,</span> <span id = 'Entero'>64</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>strconv</span><span id = 'Invalido'>.</span><span id = 'Variable'>ParseFloat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>token</span><span id = 'Invalido'>.</span><span id = 'Variable'>Value</span><span id = 'Invalido'>,</span> <span id = 'Entero'>64</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 	<span id = 'Puntuacion'>}</span>
@@ -116,25 +116,25 @@
 <span id = 'Comentario'>// term executes grammar below and return float64 result and error.</span>
 <span id = 'Comentario'>// grammar: factor((MULTI|DIV)factor)*</span>
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>c</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>Calculator</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>term</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>float</span><span id = 'Entero'>64</span><span id = 'Invalido'>,</span> <span id = 'Variable'>error</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>factor</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>factor</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>for</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>isCurrentTokenMultiOrDiv</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>op</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>op</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>switch</span> <span id = 'Variable'>op</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>case</span> <span id = 'Variable'>TokenTypeMULTI</span><span id = 'Invalido'>:</span>
-			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeMULTI</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeMULTI</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 				<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 			<span id = 'Puntuacion'>}</span>
 		<span id = 'Constante'>case</span> <span id = 'Variable'>TokenTypeDIV</span><span id = 'Invalido'>:</span>
-			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeDIV</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeDIV</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 				<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 			<span id = 'Puntuacion'>}</span>
 		<span id = 'Puntuacion'>}</span>
 
-		<span id = 'Variable'>num</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>factor</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>num</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>factor</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 
 		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
@@ -159,25 +159,25 @@
 		<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nil</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>term</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>result</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>term</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 	<span id = 'Puntuacion'>}</span>
 
 	<span id = 'Constante'>for</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>isCurrentTokenPlusOrMinus</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>op</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>op</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Constante'>switch</span> <span id = 'Variable'>op</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>case</span> <span id = 'Variable'>TokenTypePLUS</span><span id = 'Invalido'>:</span>
-			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypePLUS</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypePLUS</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 				<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 			<span id = 'Puntuacion'>}</span>
 		<span id = 'Constante'>case</span> <span id = 'Variable'>TokenTypeMINUS</span><span id = 'Invalido'>:</span>
-			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeMINUS</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>eat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TokenTypeMINUS</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 				<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
 			<span id = 'Puntuacion'>}</span>
 		<span id = 'Puntuacion'>}</span>
 
-		<span id = 'Variable'>num</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>term</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>num</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>term</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 
 		<span id = 'Constante'>if</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Constante'>return</span> <span id = 'Entero'>0</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span>
@@ -195,7 +195,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>c</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>Calculator</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>isCurrentTokenPlusOrMinus</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>cTokenType</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span>
+	<span id = 'Variable'>cTokenType</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>cTokenType</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>TokenTypePLUS</span> <span id = 'Logico'>||</span> <span id = 'Variable'>cTokenType</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>TokenTypeMINUS</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Constante'>true</span>
 	<span id = 'Puntuacion'>}</span>
@@ -203,7 +203,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Constante'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>c</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>Calculator</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>isCurrentTokenMultiOrDiv</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>cTokenType</span> <span id = 'Invalido'>:</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span>
+	<span id = 'Variable'>cTokenType</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>c</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentToken</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Constante'>Type</span>
 	<span id = 'Constante'>if</span> <span id = 'Variable'>cTokenType</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>TokenTypeMULTI</span> <span id = 'Logico'>||</span> <span id = 'Variable'>cTokenType</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>TokenTypeDIV</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>return</span> <span id = 'Constante'>true</span>
 	<span id = 'Puntuacion'>}</span>
