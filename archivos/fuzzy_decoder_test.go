@@ -12,7 +12,7 @@ func init() {
 }
 
 func Test_any_to_string(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val string
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal("100", val)
@@ -26,7 +26,7 @@ func Test_any_to_string(t *testing.T) {
 	should.NotNil(jsoniter.UnmarshalFromString("[]", &val))
 }
 func Test_any_to_int64(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val int64
 
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
@@ -55,7 +55,7 @@ func Test_any_to_int64(t *testing.T) {
 }
 
 func Test_any_to_int(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val int
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(100, val)
@@ -79,7 +79,7 @@ func Test_any_to_int(t *testing.T) {
 }
 
 func Test_any_to_int16(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val int16
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(int16(100), val)
@@ -103,7 +103,7 @@ func Test_any_to_int16(t *testing.T) {
 }
 
 func Test_any_to_int32(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val int32
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(int32(100), val)
@@ -127,7 +127,7 @@ func Test_any_to_int32(t *testing.T) {
 }
 
 func Test_any_to_int8(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val int8
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(int8(100), val)
@@ -151,7 +151,7 @@ func Test_any_to_int8(t *testing.T) {
 }
 
 func Test_any_to_uint8(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val uint8
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(uint8(100), val)
@@ -175,7 +175,7 @@ func Test_any_to_uint8(t *testing.T) {
 }
 
 func Test_any_to_uint64(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val uint64
 
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
@@ -202,7 +202,7 @@ func Test_any_to_uint64(t *testing.T) {
 	should.NotNil(jsoniter.UnmarshalFromString(`1234512345123451234512345.0`, &val))
 }
 func Test_any_to_uint32(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val uint32
 
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
@@ -229,7 +229,7 @@ func Test_any_to_uint32(t *testing.T) {
 	should.NotNil(jsoniter.UnmarshalFromString(`1234512345123451234512345.0`, &val))
 }
 func Test_any_to_uint16(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val uint16
 
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
@@ -256,7 +256,7 @@ func Test_any_to_uint16(t *testing.T) {
 	should.NotNil(jsoniter.UnmarshalFromString(`1234512345123451234512345.0`, &val))
 }
 func Test_any_to_uint(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val uint
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(uint(100), val)
@@ -279,7 +279,7 @@ func Test_any_to_uint(t *testing.T) {
 }
 
 func Test_any_to_float32(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val float32
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
 	should.Equal(float32(100), val)
@@ -302,7 +302,7 @@ func Test_any_to_float32(t *testing.T) {
 }
 
 func Test_any_to_float64(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val float64
 
 	should.Nil(jsoniter.UnmarshalFromString(`"100"`, &val))
@@ -326,17 +326,17 @@ func Test_any_to_float64(t *testing.T) {
 }
 
 func Test_empty_array_as_map(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val map[string]interface{}
 	should.Nil(jsoniter.UnmarshalFromString(`[]`, &val))
 	should.Equal(map[string]interface{}{}, val)
 }
 
 func Test_empty_array_as_object(t *testing.T) {
-	should := require.New(t)
-	var val struct{}
+	should := require.New (t)
+	var val struct {}
 	should.Nil(jsoniter.UnmarshalFromString(`[]`, &val))
-	should.Equal(struct{}{}, val)
+	should.Equal(struct {}{}, val)
 }
 
 func Test_bad_case(t *testing.T) {
@@ -356,12 +356,12 @@ func Test_bad_case(t *testing.T) {
 
 	var a OrderEventRequestParams
 	err := jsoniter.UnmarshalFromString(jsonstr, &a)
-	should := require.New(t)
+	should := require.New (t)
 	should.Nil(err)
 }
 
 func Test_null_to_string(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	body := []byte(`null`)
 	var message string
 	err := jsoniter.Unmarshal(body, &message)
@@ -369,7 +369,7 @@ func Test_null_to_string(t *testing.T) {
 }
 
 func Test_null_to_int(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	body := []byte(`null`)
 	var message int
 	err := jsoniter.Unmarshal(body, &message)
@@ -377,7 +377,7 @@ func Test_null_to_int(t *testing.T) {
 }
 
 func Test_null_to_float32(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	body := []byte(`null`)
 	var message float32
 	err := jsoniter.Unmarshal(body, &message)
@@ -385,7 +385,7 @@ func Test_null_to_float32(t *testing.T) {
 }
 
 func Test_null_to_float64(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	body := []byte(`null`)
 	var message float64
 	err := jsoniter.Unmarshal(body, &message)

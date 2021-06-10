@@ -9,16 +9,16 @@ import (
 )
 
 func Test_use_number_for_unmarshal(t *testing.T) {
-	should := require.New(t)
-	api := jsoniter.Config{UseNumber: true}.Froze()
+	should := require.New (t)
+	api := jsoniter.Config{UseNumber: true }.Froze()
 	var obj interface{}
 	should.Nil(api.UnmarshalFromString("123", &obj))
 	should.Equal(json.Number("123"), obj)
 }
 
 func Test_customize_float_marshal(t *testing.T) {
-	should := require.New(t)
-	json := jsoniter.Config{MarshalFloatWith6Digits: true}.Froze()
+	should := require.New (t)
+	json := jsoniter.Config{MarshalFloatWith6Digits: true }.Froze()
 	str, err := json.MarshalToString(float32(1.23456789))
 	should.Nil(err)
 	should.Equal("1.234568", str)
@@ -30,7 +30,7 @@ func Test_customize_tag_key(t *testing.T) {
 		Field string `orm:"field"`
 	}
 
-	should := require.New(t)
+	should := require.New (t)
 	json := jsoniter.Config{TagKey: "orm"}.Froze()
 	str, err := json.MarshalToString(TestObject{"hello"})
 	should.Nil(err)
@@ -38,9 +38,9 @@ func Test_customize_tag_key(t *testing.T) {
 }
 
 func Test_read_large_number_as_interface(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 	var val interface{}
-	err := jsoniter.Config{UseNumber: true}.Froze().UnmarshalFromString(`123456789123456789123456789`, &val)
+	err := jsoniter.Config{UseNumber: true }.Froze().UnmarshalFromString(`123456789123456789123456789`, &val)
 	should.Nil(err)
 	output, err := jsoniter.MarshalToString(val)
 	should.Nil(err)
@@ -63,7 +63,7 @@ type E struct {
 }
 
 func Test_CaseSensitive(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 
 	testCases := []struct {
 		input          string
@@ -73,42 +73,42 @@ func Test_CaseSensitive(t *testing.T) {
 		{
 			input:          `{"A":"foo","B":"bar"}`,
 			expectedOutput: `{"a":"foo","b":"bar"}`,
-			caseSensitive:  false,
+			caseSensitive:  false ,
 		},
 		{
 			input:          `{"a":"foo","b":"bar"}`,
 			expectedOutput: `{"a":"foo","b":"bar"}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"a":"foo","b":"bar","C":{"D":10}}`,
 			expectedOutput: `{"a":"foo","b":"bar","C":{"D":10}}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"a":"foo","B":"bar","c":{"d":10}}`,
 			expectedOutput: `{"a":"foo"}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"a":"foo","C":{"d":10}}`,
 			expectedOutput: `{"a":"foo","C":{}}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"a":"foo","C":{"D":10,"e":{"f":"baz"}}}`,
 			expectedOutput: `{"a":"foo","C":{"D":10,"e":{}}}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"a":"foo","C":{"D":10,"e":{"F":"baz"}}}`,
 			expectedOutput: `{"a":"foo","C":{"D":10,"e":{"F":"baz"}}}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"A":"foo","c":{"d":10,"E":{"f":"baz"}}}`,
 			expectedOutput: `{"a":"foo","C":{"D":10,"e":{"F":"baz"}}}`,
-			caseSensitive:  false,
+			caseSensitive:  false ,
 		},
 	}
 
@@ -138,7 +138,7 @@ type structWithElevenFields struct {
 }
 
 func Test_CaseSensitive_MoreThanTenFields(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 
 	testCases := []struct {
 		input          string
@@ -148,17 +148,17 @@ func Test_CaseSensitive_MoreThanTenFields(t *testing.T) {
 		{
 			input:          `{"A":"1","B":"2","C":"3","d":"4","e":"5","f":"6","g":"7","h":"8","i":"9","j":"10","k":"11"}`,
 			expectedOutput: `{"A":"1","B":"2","C":"3","d":"4","e":"5","f":"6","g":"7","h":"8","i":"9","j":"10","k":"11"}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 		{
 			input:          `{"a":"1","b":"2","c":"3","D":"4","E":"5","F":"6"}`,
 			expectedOutput: `{"A":"1","B":"2","C":"3","d":"4","e":"5","f":"6"}`,
-			caseSensitive:  false,
+			caseSensitive:  false ,
 		},
 		{
 			input:          `{"A":"1","b":"2","d":"4","E":"5"}`,
 			expectedOutput: `{"A":"1","d":"4"}`,
-			caseSensitive:  true,
+			caseSensitive:  true ,
 		},
 	}
 
@@ -195,7 +195,7 @@ type I struct {
 }
 
 func Test_OnlyTaggedField(t *testing.T) {
-	should := require.New(t)
+	should := require.New (t)
 
 	obj := onlyTaggedFieldStruct{
 		A:      "a",
@@ -208,7 +208,7 @@ func Test_OnlyTaggedField(t *testing.T) {
 		I:      &I{J: "j", K: "k"},
 	}
 
-	output, err := jsoniter.Config{OnlyTaggedField: true}.Froze().Marshal(obj)
+	output, err := jsoniter.Config{OnlyTaggedField: true }.Froze().Marshal(obj)
 	should.Nil(err)
 
 	m := make(map[string]interface{})

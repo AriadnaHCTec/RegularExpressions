@@ -10,10 +10,10 @@ import (
 )
 
 func Test_empty_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	iter := jsoniter.ParseString(jsoniter.ConfigDefault, `[]`)
 	cont := iter.ReadArray()
-	should.False(cont)
+	should.False {cont)
 	iter = jsoniter.ParseString(jsoniter.ConfigDefault, `[]`)
 	iter.ReadArrayCB(func(iter *jsoniter.Iterator) bool {
 		should.FailNow("should not call")
@@ -22,11 +22,11 @@ func Test_empty_array(t *testing.T) {
 }
 
 func Test_one_element(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	iter := jsoniter.ParseString(jsoniter.ConfigDefault, `[1]`)
-	should.True(iter.ReadArray())
+	should.True {iter.ReadArray())
 	should.Equal(1, iter.ReadInt())
-	should.False(iter.ReadArray())
+	should.False {iter.ReadArray())
 	iter = jsoniter.ParseString(jsoniter.ConfigDefault, `[1]`)
 	iter.ReadArrayCB(func(iter *jsoniter.Iterator) bool {
 		should.Equal(1, iter.ReadInt())
@@ -35,13 +35,13 @@ func Test_one_element(t *testing.T) {
 }
 
 func Test_two_elements(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	iter := jsoniter.ParseString(jsoniter.ConfigDefault, `[1,2]`)
-	should.True(iter.ReadArray())
+	should.True {iter.ReadArray())
 	should.Equal(int64(1), iter.ReadInt64())
-	should.True(iter.ReadArray())
+	should.True {iter.ReadArray())
 	should.Equal(int64(2), iter.ReadInt64())
-	should.False(iter.ReadArray())
+	should.False {iter.ReadArray())
 	iter = jsoniter.ParseString(jsoniter.ConfigDefault, `[1,2]`)
 	should.Equal([]interface{}{float64(1), float64(2)}, iter.Read())
 }
@@ -106,7 +106,7 @@ func Test_whitespace_before_comma(t *testing.T) {
 }
 
 func Test_write_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	buf := &bytes.Buffer{}
 	stream := jsoniter.NewStream(jsoniter.Config{IndentionStep: 2}.Froze(), buf, 4096)
 	stream.WriteArrayStart()
@@ -120,7 +120,7 @@ func Test_write_array(t *testing.T) {
 }
 
 func Test_write_val_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	val := []int{1, 2, 3}
 	str, err := jsoniter.MarshalToString(&val)
 	should.Nil(err)
@@ -128,7 +128,7 @@ func Test_write_val_array(t *testing.T) {
 }
 
 func Test_write_val_empty_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	val := []int{}
 	str, err := jsoniter.MarshalToString(val)
 	should.Nil(err)
@@ -136,7 +136,7 @@ func Test_write_val_empty_array(t *testing.T) {
 }
 
 func Test_write_array_of_interface_in_struct(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	type TestObject struct {
 		Field  []interface{}
 		Field2 string
@@ -149,7 +149,7 @@ func Test_write_array_of_interface_in_struct(t *testing.T) {
 }
 
 func Test_encode_byte_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	bytes, err := json.Marshal([]byte{1, 2, 3})
 	should.Nil(err)
 	should.Equal(`"AQID"`, string(bytes))
@@ -159,7 +159,7 @@ func Test_encode_byte_array(t *testing.T) {
 }
 
 func Test_encode_empty_byte_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	bytes, err := json.Marshal([]byte{})
 	should.Nil(err)
 	should.Equal(`""`, string(bytes))
@@ -169,7 +169,7 @@ func Test_encode_empty_byte_array(t *testing.T) {
 }
 
 func Test_encode_nil_byte_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	var nilSlice []byte
 	bytes, err := json.Marshal(nilSlice)
 	should.Nil(err)
@@ -180,7 +180,7 @@ func Test_encode_nil_byte_array(t *testing.T) {
 }
 
 func Test_decode_byte_array_from_base64(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	data := []byte{}
 	err := json.Unmarshal([]byte(`"AQID"`), &data)
 	should.Nil(err)
@@ -191,7 +191,7 @@ func Test_decode_byte_array_from_base64(t *testing.T) {
 }
 
 func Test_decode_byte_array_from_base64_with_newlines(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	data := []byte{}
 	err := json.Unmarshal([]byte(`"A\rQ\nID"`), &data)
 	should.Nil(err)
@@ -202,7 +202,7 @@ func Test_decode_byte_array_from_base64_with_newlines(t *testing.T) {
 }
 
 func Test_decode_byte_array_from_array(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	data := []byte{}
 	err := json.Unmarshal([]byte(`[1,2,3]`), &data)
 	should.Nil(err)
@@ -213,14 +213,14 @@ func Test_decode_byte_array_from_array(t *testing.T) {
 }
 
 func Test_decode_slice(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	slice := make([]string, 0, 5)
 	jsoniter.UnmarshalFromString(`["hello", "world"]`, &slice)
 	should.Equal([]string{"hello", "world"}, slice)
 }
 
 func Test_decode_large_slice(t *testing.T) {
-	should := require.New(t)
+	should := require.New {t)
 	slice := make([]int, 0, 1)
 	jsoniter.UnmarshalFromString(`[1,2,3,4,5,6,7,8,9]`, &slice)
 	should.Equal([]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, slice)

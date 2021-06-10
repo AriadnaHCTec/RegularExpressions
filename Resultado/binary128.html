@@ -6,79 +6,174 @@
         <link rel="stylesheet" href="estilo.css" type="text/css">        
     </head>    
     <body>
-        <pre><span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+        <pre><span id = 'Comentario'>//go:generate go run gen.go -o extra_test.go</span>
+
+<span id = 'Comentario'>// Package binary128 implements encoding and decoding of IEEE 754 quadruple</span>
+<span id = 'Comentario'>// precision floating-point numbers.</span>
+<span id = 'Comentario'>//</span>
+<span id = 'Comentario'>// https://en.wikipedia.org/wiki/Quadruple-precision_floating-point_format</span>
+<span id = 'Variable'>package</span> <span id = 'Variable'>binary128</span>
+
+<span id = 'Constante'>import </span><span id = 'Puntuacion'>(</span>
+	<span id = 'String'>"fmt"</span>
+	<span id = 'String'>"math"</span>
+	<span id = 'String'>"math/big"</span>
+<span id = 'Puntuacion'>)</span>
+
+<span id = 'Variable'>const</span> <span id = 'Puntuacion'>(</span>
+	<span id = 'Comentario'>// precision specifies the number of bits in the mantissa (including the</span>
+	<span id = 'Comentario'>// implicit lead bit).</span>
+	<span id = 'Variable'>precision</span> <span id = 'Asignacion'>=</span> <span id = 'Entero'>113</span>
+	<span id = 'Comentario'>// exponent bias.</span>
+	<span id = 'Variable'>bias</span> <span id = 'Asignacion'>=</span> <span id = 'Entero'>16383</span>
+<span id = 'Puntuacion'>)</span>
+
+<span id = 'Comentario'>// Positive and negative Not-a-Number, infinity and zero.</span>
+<span id = 'Constante'>var </span><span id = 'Puntuacion'>(</span>
+	<span id = 'Comentario'>// +NaN</span>
+	<span id = 'Variable'>NaN</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0x7FFF800000000000</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// -NaN</span>
+	<span id = 'Variable'>NegNaN</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0xFFFF800000000000</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// +Inf</span>
+	<span id = 'Variable'>Inf</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0x7FFF000000000000</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// -Inf</span>
+	<span id = 'Variable'>NegInf</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0xFFFF000000000000</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// +zero</span>
+	<span id = 'Variable'>Zero</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0x0000000000000000</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// -zero</span>
+	<span id = 'Variable'>NegZero</span> <span id = 'Asignacion'>=</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0x8000000000000000</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>}</span>
+<span id = 'Puntuacion'>)</span>
+
+<span id = 'Comentario'>// Float is a floating-point number in IEEE 754 quadruple precision format.</span>
+<span id = 'Constante'>type </span><span id = 'Constante'>Float </span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// Sign, exponent and fraction.</span>
+	<span id = 'Comentario'>//</span>
+	<span id = 'Comentario'>//    1 bit:    sign</span>
+	<span id = 'Comentario'>//    15 bits:  exponent</span>
+	<span id = 'Comentario'>//    112 bits: fraction</span>
+	<span id = 'Variable'>a</span> <span id = 'Variable'>uint64</span>
+	<span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span>
 <span id = 'Puntuacion'>}</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>f</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
+
+<span id = 'Comentario'>// NewFromBits returns the floating-point number corresponding to the IEEE 754</span>
+<span id = 'Comentario'>// quadruple precision binary representation.</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>NewFromBits</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>)</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>return </span><span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Variable'>b</span><span id = 'Puntuacion'>}</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// NewFromFloat32 returns the nearest quadruple precision floating-point number</span>
+<span id = 'Comentario'>// for x and the accuracy of the conversion.</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>NewFromFloat32</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Variable'>float32</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>Float </span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>f</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>NewFromFloat64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>float64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Puntuacion'>}</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>f</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// NewFromFloat64 returns the nearest quadruple precision floating-point number</span>
 <span id = 'Comentario'>// for x and the accuracy of the conversion.</span>
-<span id = 'Constante'>func </span><span id = 'Variable'>NewFromFloat64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Variable'>float64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>Float,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Comentario'>// +-NaN</span>
-<span id = 'Constante'>switch </span><span id = 'Puntuacion'>{</span>
-<span id = 'Constante'>case </span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>IsNaN</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>:</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Comentario'>// -NaN</span>
-		<span id = 'Constante'>return </span><span id = 'Variable'>NegNaN</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>NewFromFloat64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Variable'>float64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>Float </span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// +-NaN</span>
+	<span id = 'Constante'>switch </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>case </span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>IsNaN</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>:</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Comentario'>// -NaN</span>
+			<span id = 'Constante'>return </span><span id = 'Variable'>NegNaN</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Comentario'>// +NaN</span>
+		<span id = 'Constante'>return </span><span id = 'Variable'>NaN</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Comentario'>// +NaN</span>
-	<span id = 'Constante'>return </span><span id = 'Variable'>NaN</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>y</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>y</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>y</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>ToNearestEven</span><span id = 'Puntuacion'>)</span>
-<span id = 'Comentario'>// TODO: check accuracy after setting precision?</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>NewFromBig</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>y</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>y</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>y</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>y</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>ToNearestEven</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Comentario'>// TODO: check accuracy after setting precision?</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>NewFromBig</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>y</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// NewFromBig returns the nearest quadruple precision floating-point number for</span>
 <span id = 'Comentario'>// x and the accuracy of the conversion.</span>
-<span id = 'Constante'>func </span><span id = 'Variable'>NewFromBig</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Constante'>Float)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>Float,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Comentario'>// +-Inf</span>
-<span id = 'Variable'>zero</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>switch </span><span id = 'Puntuacion'>{</span>
-<span id = 'Constante'>case </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>IsInf</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>:</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Comentario'>// -Inf</span>
-		<span id = 'Constante'>return </span><span id = 'Variable'>NegInf</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>NewFromBig</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Constante'>Float </span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// +-Inf</span>
+	<span id = 'Variable'>zero</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>switch </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>case </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>IsInf</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>:</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Comentario'>// -Inf</span>
+			<span id = 'Constante'>return </span><span id = 'Variable'>NegInf</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Comentario'>// +Inf</span>
+		<span id = 'Constante'>return </span><span id = 'Variable'>Inf</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+	<span id = 'Comentario'>// +-zero</span>
+	<span id = 'Constante'>case </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Cmp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>zero</span><span id = 'Puntuacion'>)</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>:</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Comentario'>// -zero</span>
+			<span id = 'Constante'>return </span><span id = 'Variable'>NegZero</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Comentario'>// +zero</span>
+		<span id = 'Constante'>return </span><span id = 'Variable'>Zero</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Comentario'>// +Inf</span>
-	<span id = 'Constante'>return </span><span id = 'Variable'>Inf</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-<span id = 'Comentario'>// +-zero</span>
-<span id = 'Constante'>case </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Cmp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>zero</span><span id = 'Puntuacion'>)</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>:</span>
+
+	<span id = 'Comentario'>// Sign</span>
+	<span id = 'Constante'>var </span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span>
 	<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Comentario'>// -zero</span>
-		<span id = 'Constante'>return </span><span id = 'Variable'>NegZero</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Entero'>0x8000000000000000</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Comentario'>// +zero</span>
-	<span id = 'Constante'>return </span><span id = 'Variable'>Zero</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-<span id = 'Puntuacion'>}</span>
 
-<span id = 'Comentario'>// Sign</span>
-<span id = 'Constante'>var </span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Entero'>0x8000000000000000</span>
-<span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// Exponent and mantissa.</span>
+	<span id = 'Variable'>mant</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>exponent</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>MantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Comentario'>// Remove 1 from the exponent as big.Float has an no lead bit.</span>
+	<span id = 'Variable'>exp</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>exponent</span> <span id = 'Aritmetico'>-</span> <span id = 'Entero'>1</span> <span id = 'Aritmetico'>+</span> <span id = 'Variable'>bias</span>
 
-<span id = 'Comentario'>// Exponent and mantissa.</span>
-<span id = 'Variable'>mant</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Constante'>Float)</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>exponent</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>MantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Puntuacion'>)</span>
-<span id = 'Comentario'>// Remove 1 from the exponent as big.Float has an no lead bit.</span>
-<span id = 'Variable'>exp</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>exponent</span> <span id = 'Aritmetico'>-</span> <span id = 'Entero'>1</span> <span id = 'Aritmetico'>+</span> <span id = 'Variable'>bias</span>
+	<span id = 'Comentario'>// Handle denormalized values.</span>
+	<span id = 'Comentario'>// TODO: validate implementation of denormalized values.</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>exp</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>acc</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>exp</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Aritmetico'>-</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span> <span id = 'Aritmetico'>-</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>exp</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>precision</span> <span id = 'Aritmetico'>-</span> <span id = 'Entero'>1</span>
+			<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Below</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Invalido'>,</span> <span id = 'Variable'>exp</span><span id = 'Aritmetico'>+</span><span id = 'Variable'>precision</span><span id = 'Aritmetico'>-</span><span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Neg</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>_</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>maskA</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewInt</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Constante'>for </span><span id = 'Variable'>i</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>64</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Entero'>112</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>maskA</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>maskA</span><span id = 'Invalido'>,</span> <span id = 'Variable'>i</span><span id = 'Invalido'>,</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Variable'>maskB</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewInt</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Constante'>for </span><span id = 'Variable'>i</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Entero'>64</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>maskB</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>maskB</span><span id = 'Invalido'>,</span> <span id = 'Variable'>i</span><span id = 'Invalido'>,</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Variable'>bigA</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskA</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// a = (mantissa &amp maskA) &gt&gt 64</span>
+		<span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Rsh</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>bigA</span><span id = 'Invalido'>,</span> <span id = 'Entero'>64</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Variable'>bigB</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskB</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// b = mantissa &amp maskB</span>
+		<span id = 'Comentario'>// TODO: calculate acc based on if mantissa&amp^maskA != 0 {}</span>
+		<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&amp</span> <span id = 'Entero'>0x0000FFFFFFFFFFFF</span>
+		<span id = 'Variable'>b</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>bigB</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+		<span id = 'Constante'>return </span><span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Variable'>b</span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
+	<span id = 'Puntuacion'>}</span>
 
-<span id = 'Comentario'>// Handle denormalized values.</span>
-<span id = 'Comentario'>// TODO: validate implementation of denormalized values.</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>exp</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// exponent mask (15 bits): 0b111111111111111</span>
 	<span id = 'Variable'>acc</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>exp</span> <span id = 'Invalido'>&lt</span><span id = 'Asignacion'>=</span> <span id = 'Aritmetico'>-</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span> <span id = 'Aritmetico'>-</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>exp</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>precision</span> <span id = 'Aritmetico'>-</span> <span id = 'Entero'>1</span>
-		<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Below</span>
+	<span id = 'Constante'>if </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>exp</span> <span id = 'Aritmetico'>&amp^</span> <span id = 'Entero'>0x7FFF</span><span id = 'Puntuacion'>)</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Above</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Invalido'>,</span> <span id = 'Variable'>exp</span><span id = 'Aritmetico'>+</span><span id = 'Variable'>precision</span><span id = 'Aritmetico'>-</span><span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>exp</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0x7FFF</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&lt&lt</span> <span id = 'Entero'>48</span>
+
 	<span id = 'Constante'>if </span><span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Neg</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Puntuacion'>}</span>
+	<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Invalido'>,</span> <span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>if </span><span id = 'Logico'>!</span><span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>IsInt</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Below</span>
+	<span id = 'Puntuacion'>}</span>
 	<span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>_</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>mantissa</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Entero'>112</span><span id = 'Invalido'>,</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// clear implicit lead bit; 2^112</span>
+
+	<span id = 'Comentario'>// mantissa mask (113 bits, including implicit lead bit): 0x1FFFFFFFFFFFFFFFFFFFFFFFFFFFF</span>
 	<span id = 'Variable'>maskA</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewInt</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>for </span><span id = 'Variable'>i</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>64</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Entero'>112</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>maskA</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>maskA</span><span id = 'Invalido'>,</span> <span id = 'Variable'>i</span><span id = 'Invalido'>,</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
@@ -87,55 +182,20 @@
 	<span id = 'Constante'>for </span><span id = 'Variable'>i</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Entero'>64</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>maskB</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>maskB</span><span id = 'Invalido'>,</span> <span id = 'Variable'>i</span><span id = 'Invalido'>,</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>bigA</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskA</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// a = (mantissa &amp maskA) &gt&gt 64</span>
+	<span id = 'Variable'>bigA</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskA</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// a = (mantissa &amp maskA) &gt&gt 64</span>
 	<span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Rsh</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>bigA</span><span id = 'Invalido'>,</span> <span id = 'Entero'>64</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>bigB</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskB</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// b = mantissa &amp maskB</span>
-	<span id = 'Comentario'>// TODO: calculate acc based on if mantissa&amp^maskA != 0 {}</span>
+	<span id = 'Variable'>bigB</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskB</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// b = mantissa &amp maskB</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Aritmetico'>&amp^</span><span id = 'Entero'>0x0000FFFFFFFFFFFF</span><span id = 'Puntuacion'>)</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Below</span>
+	<span id = 'Puntuacion'>}</span>
 	<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&amp</span> <span id = 'Entero'>0x0000FFFFFFFFFFFF</span>
 	<span id = 'Variable'>b</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>bigB</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Constante'>return </span><span id = 'Constante'>Float{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Variable'>b</span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
-<span id = 'Puntuacion'>}</span>
-
-<span id = 'Comentario'>// exponent mask (15 bits): 0b111111111111111</span>
-<span id = 'Variable'>acc</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-<span id = 'Constante'>if </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>exp</span> <span id = 'Aritmetico'>&amp^</span> <span id = 'Entero'>0x7FFF</span><span id = 'Puntuacion'>)</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Above</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>exp</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0x7FFF</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&lt&lt</span> <span id = 'Entero'>48</span>
-
-<span id = 'Constante'>if </span><span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Neg</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Puntuacion'>)</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMantExp</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mant</span><span id = 'Invalido'>,</span> <span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>if </span><span id = 'Logico'>!</span><span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>IsInt</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Below</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>_</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>mant</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>mantissa</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Entero'>112</span><span id = 'Invalido'>,</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// clear implicit lead bit; 2^112</span>
-
-<span id = 'Comentario'>// mantissa mask (113 bits, including implicit lead bit): 0x1FFFFFFFFFFFFFFFFFFFFFFFFFFFF</span>
-<span id = 'Variable'>maskA</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewInt</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>for </span><span id = 'Variable'>i</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>64</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Entero'>112</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>maskA</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>maskA</span><span id = 'Invalido'>,</span> <span id = 'Variable'>i</span><span id = 'Invalido'>,</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>maskB</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewInt</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>for </span><span id = 'Variable'>i</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>0</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span> <span id = 'Invalido'>&lt</span> <span id = 'Entero'>64</span><span id = 'Invalido'>;</span> <span id = 'Variable'>i</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>maskB</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetBit</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>maskB</span><span id = 'Invalido'>,</span> <span id = 'Variable'>i</span><span id = 'Invalido'>,</span> <span id = 'Entero'>1</span><span id = 'Puntuacion'>)</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>bigA</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskA</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// a = (mantissa &amp maskA) &gt&gt 64</span>
-<span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Rsh</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>bigA</span><span id = 'Invalido'>,</span> <span id = 'Entero'>64</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>bigB</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Int</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>And</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>mantissa</span><span id = 'Invalido'>,</span> <span id = 'Variable'>maskB</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>// b = mantissa &amp maskB</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Aritmetico'>&amp^</span><span id = 'Entero'>0x0000FFFFFFFFFFFF</span><span id = 'Puntuacion'>)</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>acc</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Below</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Variable'>a</span> <span id = 'Asignacion'>|=</span> <span id = 'Variable'>bigA</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&amp</span> <span id = 'Entero'>0x0000FFFFFFFFFFFF</span>
-<span id = 'Variable'>b</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>bigB</span><span id = 'Invalido'>.</span><span id = 'Variable'>Uint64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>return </span><span id = 'Constante'>Float{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Variable'>b</span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
+	<span id = 'Constante'>return </span><span id = 'Constante'>Float </span><span id = 'Puntuacion'>{</span><span id = 'Variable'>a</span><span id = 'Invalido'>:</span> <span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span><span id = 'Invalido'>:</span> <span id = 'Variable'>b</span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span> <span id = 'Variable'>acc</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Bits returns the IEEE 754 quadruple precision binary representation of f.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Bits</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>b</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Bits</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>b</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span><span id = 'Invalido'>,</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>b</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Float32 returns the float32 value nearest to f. If f is too small to be</span>
@@ -143,15 +203,15 @@
 <span id = 'Comentario'>// (0, Below) or (-0, Above), respectively, depending on the sign of f. If f is</span>
 <span id = 'Comentario'>// too large to be represented by a float32 (|f| &gt math.MaxFloat32), the result</span>
 <span id = 'Comentario'>// is (+Inf, Above) or (-Inf, Below), depending on the sign of f.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>float32</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nan</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Big</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>nan</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>return </span><span id = 'Variable'>float32</span><span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>-</span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>float32</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nan</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Big</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>nan</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Constante'>return </span><span id = 'Variable'>float32</span><span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>-</span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Constante'>return </span><span id = 'Variable'>float32</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Constante'>return </span><span id = 'Variable'>float32</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Float32</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Float64 returns the float64 value nearest to f. If f is too small to be</span>
@@ -159,92 +219,92 @@
 <span id = 'Comentario'>// (0, Below) or (-0, Above), respectively, depending on the sign of f. If f is</span>
 <span id = 'Comentario'>// too large to be represented by a float64 (|f| &gt math.MaxFloat64), the result</span>
 <span id = 'Comentario'>// is (+Inf, Above) or (-Inf, Below), depending on the sign of f.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Float64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>float64</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nan</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Big</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>nan</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Constante'>return </span><span id = 'Aritmetico'>-</span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Float64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>float64</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accuracy</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nan</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Big</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>nan</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Constante'>return </span><span id = 'Aritmetico'>-</span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Constante'>return </span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Constante'>return </span><span id = 'Variable'>math</span><span id = 'Invalido'>.</span><span id = 'Variable'>NaN</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exact</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Float64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Float64</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Big returns the multi-precision floating-point number representation of f and</span>
 <span id = 'Comentario'>// a boolean indicating whether f is Not-a-Number.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Big</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Constante'>Float,</span> <span id = 'Variable'>nan</span> <span id = 'Variable'>bool</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Variable'>signbit</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>exp</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exp</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>frac1</span><span id = 'Invalido'>,</span> <span id = 'Variable'>frac2</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Frac</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>x</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>ToNearestEven</span><span id = 'Puntuacion'>)</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Big</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Constante'>Float </span><span id = 'Invalido'>,</span> <span id = 'Variable'>nan</span> <span id = 'Variable'>bool</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>signbit</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>exp</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Exp</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>frac1</span><span id = 'Invalido'>,</span> <span id = 'Variable'>frac2</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>Frac</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>x</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewFloat</span><span id = 'Puntuacion'>(</span><span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetPrec</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>precision</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetMode</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>big</span><span id = 'Invalido'>.</span><span id = 'Variable'>ToNearestEven</span><span id = 'Puntuacion'>)</span>
 
-<span id = 'Variable'>lead</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>1</span>
-<span id = 'Variable'>exponent</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>exp</span> <span id = 'Aritmetico'>-</span> <span id = 'Variable'>bias</span>
+	<span id = 'Variable'>lead</span> <span id = 'Asignacion'>:=</span> <span id = 'Entero'>1</span>
+	<span id = 'Variable'>exponent</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>exp</span> <span id = 'Aritmetico'>-</span> <span id = 'Variable'>bias</span>
 
-<span id = 'Constante'>switch </span><span id = 'Variable'>exp</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Comentario'>// 0b111111111111111</span>
-<span id = 'Constante'>case </span><span id = 'Entero'>0x7FFF</span><span id = 'Invalido'>:</span>
-	<span id = 'Comentario'>// Inf or NaN</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>frac1</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>frac2</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Comentario'>// +-Inf</span>
-		<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetInf</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>signbit</span><span id = 'Puntuacion'>)</span>
-		<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>false</span>
-	<span id = 'Puntuacion'>}</span>
-	<span id = 'Comentario'>// +-NaN</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>signbit</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Neg</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Puntuacion'>}</span>
-	<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>true</span>
-<span id = 'Comentario'>// 0b000000000000000</span>
-<span id = 'Constante'>case </span><span id = 'Entero'>0x0000</span><span id = 'Invalido'>:</span>
-	<span id = 'Constante'>if </span><span id = 'Variable'>frac1</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>frac2</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
-		<span id = 'Comentario'>// +-Zero</span>
+	<span id = 'Constante'>switch </span><span id = 'Variable'>exp</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// 0b111111111111111</span>
+	<span id = 'Constante'>case </span><span id = 'Entero'>0x7FFF</span><span id = 'Invalido'>:</span>
+		<span id = 'Comentario'>// Inf or NaN</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>frac1</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>frac2</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Comentario'>// +-Inf</span>
+			<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>SetInf</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>signbit</span><span id = 'Puntuacion'>)</span>
+			<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>false</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Comentario'>// +-NaN</span>
 		<span id = 'Constante'>if </span><span id = 'Variable'>signbit</span> <span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Neg</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span>
 		<span id = 'Puntuacion'>}</span>
-		<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>false</span>
+		<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>true</span>
+	<span id = 'Comentario'>// 0b000000000000000</span>
+	<span id = 'Constante'>case </span><span id = 'Entero'>0x0000</span><span id = 'Invalido'>:</span>
+		<span id = 'Constante'>if </span><span id = 'Variable'>frac1</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>frac2</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
+			<span id = 'Comentario'>// +-Zero</span>
+			<span id = 'Constante'>if </span><span id = 'Variable'>signbit</span> <span id = 'Puntuacion'>{</span>
+				<span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Neg</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>x</span><span id = 'Puntuacion'>)</span>
+			<span id = 'Puntuacion'>}</span>
+			<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>false</span>
+		<span id = 'Puntuacion'>}</span>
+		<span id = 'Comentario'>// Denormalized number.</span>
+		<span id = 'Comentario'>//</span>
+		<span id = 'Comentario'>//    (-1)^signbit * 2^(-16382) * 0.mant_2</span>
+		<span id = 'Variable'>lead</span> <span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span>
+		<span id = 'Variable'>exponent</span> <span id = 'Asignacion'>=</span> <span id = 'Aritmetico'>-</span><span id = 'Entero'>16382</span>
 	<span id = 'Puntuacion'>}</span>
-	<span id = 'Comentario'>// Denormalized number.</span>
-	<span id = 'Comentario'>//</span>
-	<span id = 'Comentario'>//    (-1)^signbit * 2^(-16382) * 0.mant_2</span>
-	<span id = 'Variable'>lead</span> <span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span>
-	<span id = 'Variable'>exponent</span> <span id = 'Asignacion'>=</span> <span id = 'Aritmetico'>-</span><span id = 'Entero'>16382</span>
-<span id = 'Puntuacion'>}</span>
 
-<span id = 'Comentario'>// number = [ sign ] [ prefix ] mantissa [ exponent ] | infinity .</span>
-<span id = 'Variable'>sign</span> <span id = 'Asignacion'>:=</span> <span id = 'String'>"+"</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>signbit</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>sign</span> <span id = 'Asignacion'>=</span> <span id = 'String'>"-"</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Comentario'>// first part cut the sign and exponent which only contains 48 bits</span>
-<span id = 'Variable'>fracStr</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>fmt</span><span id = 'Invalido'>.</span><span id = 'Variable'>Sprintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"%048b%064b"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>frac1</span><span id = 'Invalido'>,</span> <span id = 'Variable'>frac2</span><span id = 'Puntuacion'>)</span>
-<span id = 'Variable'>s</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>fmt</span><span id = 'Invalido'>.</span><span id = 'Variable'>Sprintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"%s0b%d.%sp%d"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>sign</span><span id = 'Invalido'>,</span> <span id = 'Variable'>lead</span><span id = 'Invalido'>,</span> <span id = 'Variable'>fracStr</span><span id = 'Invalido'>,</span> <span id = 'Variable'>exponent</span><span id = 'Puntuacion'>)</span>
-<span id = 'Constante'>if </span><span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Parse</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Invalido'>,</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>panic</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
-<span id = 'Puntuacion'>}</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>false</span>
+	<span id = 'Comentario'>// number = [ sign ] [ prefix ] mantissa [ exponent ] | infinity .</span>
+	<span id = 'Variable'>sign</span> <span id = 'Asignacion'>:=</span> <span id = 'String'>"+"</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>signbit</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>sign</span> <span id = 'Asignacion'>=</span> <span id = 'String'>"-"</span>
+	<span id = 'Puntuacion'>}</span>
+	<span id = 'Comentario'>// first part cut the sign and exponent which only contains 48 bits</span>
+	<span id = 'Variable'>fracStr</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>fmt</span><span id = 'Invalido'>.</span><span id = 'Variable'>Sprintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"%048b%064b"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>frac1</span><span id = 'Invalido'>,</span> <span id = 'Variable'>frac2</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>s</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>fmt</span><span id = 'Invalido'>.</span><span id = 'Variable'>Sprintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"%s0b%d.%sp%d"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>sign</span><span id = 'Invalido'>,</span> <span id = 'Variable'>lead</span><span id = 'Invalido'>,</span> <span id = 'Variable'>fracStr</span><span id = 'Invalido'>,</span> <span id = 'Variable'>exponent</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Constante'>if </span><span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>x</span><span id = 'Invalido'>.</span><span id = 'Variable'>Parse</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>s</span><span id = 'Invalido'>,</span> <span id = 'Entero'>0</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>;</span> <span id = 'Variable'>err</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>panic</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Puntuacion'>}</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>x</span><span id = 'Invalido'>,</span> <span id = 'Constante'>false</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Signbit reports whether f is negative or negative 0.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Comentario'>// first bit is sign bit</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0x8000000000000000</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Signbit</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// first bit is sign bit</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0x8000000000000000</span> <span id = 'Logico'>!</span><span id = 'Asignacion'>=</span> <span id = 'Entero'>0</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Exp returns the exponent of f.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Exp</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>int</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Comentario'>// 15 bit exponent</span>
-<span id = 'Constante'>return </span><span id = 'Variable'>int</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0x7FFF000000000000</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&gt&gt</span> <span id = 'Entero'>48</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Exp</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>int</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// 15 bit exponent</span>
+	<span id = 'Constante'>return </span><span id = 'Variable'>int</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span><span id = 'Aritmetico'>&amp</span><span id = 'Entero'>0x7FFF000000000000</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>&gt&gt</span> <span id = 'Entero'>48</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// Frac returns the fraction of f.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float)</span> <span id = 'Variable'>Frac</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>uint64</span><span id = 'Invalido'>,</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-<span id = 'Comentario'>// 0x0000FFFFFFFFFFFF removes the sign and exponent part (total 16 bits) from</span>
-<span id = 'Comentario'>// our floating-point number. Now we can say it contains 48 bits of fraction,</span>
-<span id = 'Comentario'>// and `f.b` part has the rest of fraction.</span>
-<span id = 'Constante'>return </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span> <span id = 'Aritmetico'>&amp</span> <span id = 'Entero'>0x0000FFFFFFFFFFFF</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>b</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span> <span id = 'Constante'>Float </span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>Frac</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>uint64</span><span id = 'Invalido'>,</span> <span id = 'Variable'>uint64</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Comentario'>// 0x0000FFFFFFFFFFFF removes the sign and exponent part (total 16 bits) from</span>
+	<span id = 'Comentario'>// our floating-point number. Now we can say it contains 48 bits of fraction,</span>
+	<span id = 'Comentario'>// and `f.b` part has the rest of fraction.</span>
+	<span id = 'Constante'>return </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>a</span> <span id = 'Aritmetico'>&amp</span> <span id = 'Entero'>0x0000FFFFFFFFFFFF</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>f</span><span id = 'Invalido'>.</span><span id = 'Variable'>b</span>
 <span id = 'Puntuacion'>}</span>        </pre>
     </body>
 </html>    

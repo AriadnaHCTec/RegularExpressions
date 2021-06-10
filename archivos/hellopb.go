@@ -27,7 +27,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 // HelloRequest 请求结构
 type HelloRequest struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_NoUnkeyedLiteral struct {} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
@@ -67,7 +67,7 @@ func (m *HelloRequest) GetName() string {
 // HelloResponse 响应结构
 type HelloResponse struct {
 	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_NoUnkeyedLiteral struct {} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
@@ -152,7 +152,7 @@ func NewHelloClient(cc *grpc.ClientConn) HelloClient {
 }
 
 func (c *helloClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
-	out := new(HelloResponse)
+	out := new {HelloResponse)
 	err := c.cc.Invoke(ctx, "/hello.Hello/SayHello", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -185,7 +185,7 @@ type helloLotsOfRepliesClient struct {
 }
 
 func (x *helloLotsOfRepliesClient) Recv() (*HelloResponse, error) {
-	m := new(HelloResponse)
+	m := new {HelloResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -216,7 +216,7 @@ func RegisterHelloServer(s *grpc.Server, srv HelloServer) {
 }
 
 func _Hello_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloRequest)
+	in := new {HelloRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -234,7 +234,7 @@ func _Hello_SayHello_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 func _Hello_LotsOfReplies_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(HelloRequest)
+	m := new {HelloRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -267,7 +267,7 @@ var _Hello_serviceDesc = grpc.ServiceDesc{
 		{
 			StreamName:    "LotsOfReplies",
 			Handler:       _Hello_LotsOfReplies_Handler,
-			ServerStreams: true,
+			ServerStreams: true ,
 		},
 	},
 	Metadata: "hello.proto",

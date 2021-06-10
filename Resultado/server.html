@@ -33,7 +33,7 @@
 
 <span id = 'Variable'>const</span> <span id = 'Variable'>debug</span> <span id = 'Asignacion'>=</span> <span id = 'Entero'>1</span>
 
-<span id = 'Constante'>func </span><span id = 'Variable'>DPrintf</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>format</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>a</span> <span id = 'Invalido'>.</span><span id = 'Invalido'>.</span><span id = 'Invalido'>.</span><span id = 'Variable'>interface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>n</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Variable'>error</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>DPrintf</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>format</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>a</span> <span id = 'Invalido'>.</span><span id = 'Invalido'>.</span><span id = 'Invalido'>.</span><span id = 'Variable'>interface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>n</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Variable'>error</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>if </span><span id = 'Variable'>debug</span> <span id = 'Invalido'>&gt</span> <span id = 'Entero'>0</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>log</span><span id = 'Invalido'>.</span><span id = 'Variable'>Printf</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>format</span><span id = 'Invalido'>,</span> <span id = 'Variable'>a</span><span id = 'Invalido'>.</span><span id = 'Invalido'>.</span><span id = 'Invalido'>.</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Puntuacion'>}</span>
@@ -69,7 +69,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>//NewKVRaft :</span>
-<span id = 'Constante'>func </span><span id = 'Variable'>NewKVRaft</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>id</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>srvList</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>NewKVRaft</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>id</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>srvList</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>kv</span> <span id = 'Asignacion'>:=</span> <span id = 'Constante'>new(</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>myID</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>id</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>serverList</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>srvList</span>
@@ -86,12 +86,12 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>//change role</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>changeRole</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>r</span> <span id = 'Variable'>Role</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>changeRole</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>r</span> <span id = 'Variable'>Role</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>log</span><span id = 'Invalido'>.</span><span id = 'Variable'>Println</span><span id = 'Puntuacion'>(</span><span id = 'String'>"[ROLE] Server:"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>myID</span><span id = 'Invalido'>,</span> <span id = 'String'>" change from "</span><span id = 'Invalido'>,</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>role</span><span id = 'Invalido'>,</span> <span id = 'String'>" to "</span><span id = 'Invalido'>,</span> <span id = 'Variable'>r</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>role</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>r</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>callRequestVote</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>serverAddr</span> <span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>callRequestVote</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>serverAddr</span> <span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>bool</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>var </span><span id = 'Variable'>args</span> <span id = 'Variable'>RVParam</span>
 	<span id = 'Variable'>args</span><span id = 'Invalido'>.</span><span id = 'Variable'>Term</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentTerm</span>
 	<span id = 'Variable'>args</span><span id = 'Invalido'>.</span><span id = 'Variable'>CandidateId</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>myID</span>
@@ -107,7 +107,7 @@
 	<span id = 'Constante'>return </span><span id = 'Variable'>reply</span><span id = 'Invalido'>.</span><span id = 'Variable'>VoteGranted</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>callHeartbeat</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>callHeartbeat</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>for </span><span id = 'Variable'>_</span><span id = 'Invalido'>,</span> <span id = 'Variable'>srv</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>range</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>serverList</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>var </span><span id = 'Variable'>args</span> <span id = 'Variable'>AEParam</span>
 		<span id = 'Variable'>args</span><span id = 'Invalido'>.</span><span id = 'Variable'>Term</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentTerm</span>
@@ -140,7 +140,7 @@
 <span id = 'Comentario'>// }</span>
 
 <span id = 'Comentario'>//AppendEntries :RPC call to server to update Log Entry</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>AppendEntries</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>args</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>AEParam</span><span id = 'Invalido'>,</span> <span id = 'Variable'>reply</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>AEReply</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>AppendEntries</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>args</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>AEParam</span><span id = 'Invalido'>,</span> <span id = 'Variable'>reply</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>AEReply</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>heartbeat</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>time</span><span id = 'Invalido'>.</span><span id = 'Variable'>Now</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 
 	<span id = 'Comentario'>//Candidte got append from leader back to followers</span>
@@ -216,7 +216,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>//RequestVote :</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>RequestVote</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>args</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>RVParam</span><span id = 'Invalido'>,</span> <span id = 'Variable'>reply</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>RVReply</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>RequestVote</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>args</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>RVParam</span><span id = 'Invalido'>,</span> <span id = 'Variable'>reply</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>RVReply</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Comentario'>// DPrintf("Srv:%d RequestVote got args=%v", kv.myID, args)</span>
 
 	<span id = 'Constante'>if </span><span id = 'Variable'>args</span><span id = 'Invalido'>.</span><span id = 'Variable'>Term</span> <span id = 'Invalido'>&gt</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentTerm</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>args</span><span id = 'Invalido'>.</span><span id = 'Variable'>LastLogIndex</span> <span id = 'Invalido'>&gt</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>lastApplied</span> <span id = 'Puntuacion'>{</span>
@@ -236,7 +236,7 @@
 	<span id = 'Constante'>return </span><span id = 'Variable'>nil</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>serverLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>serverLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>for </span><span id = 'Puntuacion'>{</span>
 
 		<span id = 'Comentario'>//Switch every role for time out process</span>
@@ -256,14 +256,14 @@
 	<span id = 'Puntuacion'>}</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>followerLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>followerLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Comentario'>// log.Println("Srv:", kv.myID, " time=", kv.heartbeat.Add(kv.timoutDuration).String(), " now:", time.Now().String())</span>
 	<span id = 'Comentario'>//change to candidate and increase term</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>changeRole</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>Candidate</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>return</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>candidateLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>candidateLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>currentTerm</span><span id = 'Aritmetico'>+</span><span id = 'Aritmetico'>+</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>voteFor</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>myID</span>      <span id = 'Comentario'>//voted for self</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>heartbeat</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>time</span><span id = 'Invalido'>.</span><span id = 'Variable'>Now</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Comentario'>//reset timer for election</span>
@@ -285,27 +285,27 @@
 	<span id = 'Puntuacion'>}</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>leaderLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>leaderLoop</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>callHeartbeat</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>// tell the server to shut itself down.</span>
 <span id = 'Comentario'>// please do not change this function.</span>
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>kill</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>kill</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>DPrintf</span><span id = 'Puntuacion'>(</span><span id = 'String'>"Kill(%d): die\n"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>myID</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>//StartServer :</span>
-<span id = 'Constante'>func </span><span id = 'Variable'>StartServer</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>rpcPort</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span> <span id = 'Variable'>int</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>StartServer</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>rpcPort</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span> <span id = 'Variable'>int</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>return </span><span id = 'Variable'>startServer</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>rpcPort</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span><span id = 'Invalido'>,</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Comentario'>//StartClusterServers :</span>
-<span id = 'Constante'>func </span><span id = 'Variable'>StartClusterServers</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>rpcPort</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cluster</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>StartClusterServers</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>rpcPort</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cluster</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>return </span><span id = 'Variable'>startServer</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>rpcPort</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cluster</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Variable'>startServer</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>serversPort</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cluster</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Variable'>startServer</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>serversPort</span> <span id = 'Variable'>string</span><span id = 'Invalido'>,</span> <span id = 'Variable'>myID</span> <span id = 'Variable'>int</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cluster</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span><span id = 'Puntuacion'>)</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Variable'>kv</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>NewKVRaft</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>myID</span><span id = 'Invalido'>,</span> <span id = 'Variable'>cluster</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>rpcs</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>rpc</span><span id = 'Invalido'>.</span><span id = 'Variable'>NewServer</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>rpcs</span><span id = 'Invalido'>.</span><span id = 'Variable'>Register</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span><span id = 'Puntuacion'>)</span>
@@ -318,7 +318,7 @@
 	<span id = 'Puntuacion'>}</span>
 	<span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>l</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>l</span>
 
-	<span id = 'Variable'>go</span> <span id = 'Constante'>func(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>go</span> <span id = 'Variable'>func</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
 		<span id = 'Constante'>for </span><span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>dead</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>false </span><span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>conn</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>l</span><span id = 'Invalido'>.</span><span id = 'Variable'>Accept</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 			<span id = 'Constante'>if </span><span id = 'Variable'>err</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Variable'>nil</span> <span id = 'Logico'>&amp&amp</span> <span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>dead</span> <span id = 'Asignacion'>=</span><span id = 'Asignacion'>=</span> <span id = 'Constante'>false </span><span id = 'Puntuacion'>{</span>
@@ -350,7 +350,7 @@
 	<span id = 'Constante'>return </span><span id = 'Variable'>kv</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>func </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>majoriry</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>int</span> <span id = 'Puntuacion'>{</span>
+<span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>KVRaft</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>majoriry</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>int</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>return </span><span id = 'Variable'>len</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>kv</span><span id = 'Invalido'>.</span><span id = 'Variable'>serverList</span><span id = 'Puntuacion'>)</span><span id = 'Aritmetico'>/</span><span id = 'Entero'>2</span> <span id = 'Aritmetico'>+</span> <span id = 'Entero'>1</span>
 <span id = 'Puntuacion'>}</span>        </pre>
     </body>
