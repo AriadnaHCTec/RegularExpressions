@@ -90,7 +90,7 @@
 			<span id = 'Variable'>F</span> <span id = 'Variable'>tm</span> <span id = 'String'>`json:"f,omitempty"`</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
-			<span id = 'Variable'>F</span> <span id = 'Constante'>struct{</span><span id = 'Puntuacion'>}</span> <span id = 'String'>`json:"f,omitempty"`</span> <span id = 'Comentario'>// omitempty is meaningless here</span>
+			<span id = 'Variable'>F</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span> <span id = 'String'>`json:"f,omitempty"`</span> <span id = 'Comentario'>// omitempty is meaningless here</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>F</span> <span id = 'Variable'>sjm</span> <span id = 'String'>`json:"f,omitempty"`</span>
@@ -274,7 +274,7 @@
 	<span id = 'Constante'>return </span><span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>(</span><span id = 'String'>`""`</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nil</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>type </span><span id = 'Variable'>sjm</span> <span id = 'Constante'>struct{</span><span id = 'Puntuacion'>}</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>sjm</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>sjm</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>UnmarshalJSON</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>b</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>return </span><span id = 'Variable'>nil</span>
@@ -284,7 +284,7 @@
 	<span id = 'Constante'>return </span><span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>(</span><span id = 'String'>`""`</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>nil</span>
 <span id = 'Puntuacion'>}</span>
 
-<span id = 'Constante'>type </span><span id = 'Variable'>stm</span> <span id = 'Constante'>struct{</span><span id = 'Puntuacion'>}</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>stm</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>stm</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>UnmarshalText</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>b</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>byte</span><span id = 'Puntuacion'>)</span> <span id = 'Variable'>error</span> <span id = 'Puntuacion'>{</span>
 	<span id = 'Constante'>return </span><span id = 'Variable'>nil</span>

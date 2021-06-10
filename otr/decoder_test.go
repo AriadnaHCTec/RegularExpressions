@@ -13,7 +13,7 @@ import (
 
 func Test_customize_type_decoder(t *testing.T) {
 	t.Skip()
-	jsoniter.RegisterTypeDecoderFunc("time.Time", func(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+	jsoniter.RegisterTypeDecoderFunc("time.Time", func (ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 		t, err := time.ParseInLocation("2006-01-02 15:04:05", iter.ReadString(), time.UTC)
 		if err != nil {
 			iter.Error = err
@@ -36,8 +36,8 @@ func Test_customize_type_decoder(t *testing.T) {
 func Test_customize_byte_array_encoder(t *testing.T) {
 	t.Skip()
 	//jsoniter.ConfigDefault.(*frozenConfig).cleanEncoders()
-	should := require.New(t)
-	jsoniter.RegisterTypeEncoderFunc("[]uint8", func(ptr unsafe.Pointer, stream *jsoniter.Stream) {
+	should := require.New (t)
+	jsoniter.RegisterTypeEncoderFunc("[]uint8", func (ptr unsafe.Pointer, stream *jsoniter.Stream) {
 		t := *((*[]byte)(ptr))
 		stream.WriteString(string(t))
 	}, nil)
@@ -69,9 +69,9 @@ func Test_custom_encoder_attachment(t *testing.T) {
 
 	jsoniter.RegisterTypeEncoder("test.CustomEncoderAttachmentTestStruct", &CustomEncoderAttachmentTestStructEncoder{})
 	expectedValue := 17
-	should := require.New(t)
+	should := require.New (t)
 	buf := &bytes.Buffer{}
-	stream := jsoniter.NewStream(jsoniter.Config{SortMapKeys: true}.Froze(), buf, 4096)
+	stream := jsoniter.NewStream(jsoniter.Config{SortMapKeys: true }.Froze(), buf, 4096)
 	stream.Attachment = expectedValue
 	val := map[string]CustomEncoderAttachmentTestStruct{"a": {}}
 	stream.WriteVal(val)
@@ -84,7 +84,7 @@ func Test_customize_field_decoder(t *testing.T) {
 	type Tom struct {
 		field1 string
 	}
-	jsoniter.RegisterFieldDecoderFunc("jsoniter.Tom", "field1", func(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+	jsoniter.RegisterFieldDecoderFunc("jsoniter.Tom", "field1", func (ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 		*((*string)(ptr)) = strconv.Itoa(iter.ReadInt())
 	})
 	//defer jsoniter.ConfigDefault.(*frozenConfig).cleanDecoders()
@@ -98,7 +98,7 @@ func Test_customize_field_decoder(t *testing.T) {
 func Test_recursive_empty_interface_customization(t *testing.T) {
 	t.Skip()
 	var obj interface{}
-	jsoniter.RegisterTypeDecoderFunc("interface {}", func(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+	jsoniter.RegisterTypeDecoderFunc("interface {}", func (ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 		switch iter.WhatIsNext() {
 		case jsoniter.NumberValue:
 			*(*interface{})(ptr) = iter.ReadInt64()
@@ -106,7 +106,7 @@ func Test_recursive_empty_interface_customization(t *testing.T) {
 			*(*interface{})(ptr) = iter.Read()
 		}
 	})
-	should := require.New(t)
+	should := require.New (t)
 	jsoniter.Unmarshal([]byte("[100]"), &obj)
 	should.Equal([]interface{}{int64(100)}, obj)
 }
@@ -123,9 +123,9 @@ func (ms MyString) Hello() string {
 
 func Test_read_custom_interface(t *testing.T) {
 	t.Skip()
-	should := require.New(t)
+	should := require.New (t)
 	var val MyInterface
-	jsoniter.RegisterTypeDecoderFunc("jsoniter.MyInterface", func(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
+	jsoniter.RegisterTypeDecoderFunc("jsoniter.MyInterface", func (ptr unsafe.Pointer, iter *jsoniter.Iterator) {
 		*((*MyInterface)(ptr)) = MyString(iter.ReadString())
 	})
 	err := jsoniter.UnmarshalFromString(`"hello"`, &val)

@@ -310,7 +310,7 @@ func startServer(serversPort string, myID int, cluster []string) *KVRaft {
 	}
 	kv.l = l
 
-	go func () {
+	go func() {
 		for kv.dead == false {
 			conn, err := kv.l.Accept()
 			if err == nil && kv.dead == false {

@@ -77,7 +77,7 @@ func getRepositoriesFromBody(body string) []string {
 }
 func generateIssueBody(repositories []string) (string, error) {
 	var writer bytes.Buffer
-	t := template.New("issue")
+	t := template.New ("issue")
 	temp, err := t.Parse(issueTemplate)
 	if err != nil {
 		log.Print("Failed to generate template")
@@ -105,7 +105,7 @@ func createIssue(staleRepos []string, client *http.Client) {
 		Title: issueTitle,
 		Body:  body,
 	}
-	buf := new(bytes.Buffer)
+	buf := New (bytes.Buffer)
 	json.NewEncoder(buf).Encode(newIssue)
 	req, err := http.NewRequest("POST", githubPOSTISSUES, buf)
 	if err != nil {
@@ -256,7 +256,7 @@ func testStaleRepository() {
 		} else {
 			isGithubRepo := reGithubRepo.MatchString(href)
 			if isGithubRepo {
-				isRepoAdded := testRepoState(true, href, client, &staleRepos)
+				isRepoAdded := testRepoState(true , href, client, &staleRepos)
 				isRepoAdded = testCommitAge(!isRepoAdded, href, client, &staleRepos)
 				if isRepoAdded {
 					ctr++

@@ -17,16 +17,16 @@
 <span id = 'Puntuacion'>)</span>
 
 <span id = 'Variable'>func</span> <span id = 'Variable'>Test_use_number_for_unmarshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>testing</span><span id = 'Invalido'>.</span><span id = 'Variable'>T</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>api</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>UseNumber</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>api</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>UseNumber</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true </span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>var </span><span id = 'Variable'>obj</span> <span id = 'Variable'>interface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Nil</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>api</span><span id = 'Invalido'>.</span><span id = 'Variable'>UnmarshalFromString</span><span id = 'Puntuacion'>(</span><span id = 'String'>"123"</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>obj</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Equal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>Number</span><span id = 'Puntuacion'>(</span><span id = 'String'>"123"</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span> <span id = 'Variable'>obj</span><span id = 'Puntuacion'>)</span>
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Variable'>Test_customize_float_marshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>testing</span><span id = 'Invalido'>.</span><span id = 'Variable'>T</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
-	<span id = 'Variable'>json</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>MarshalFloatWith6Digits</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>json</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>MarshalFloatWith6Digits</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true </span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>str</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>MarshalToString</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>float32</span><span id = 'Puntuacion'>(</span><span id = 'Flotante'>1.23456789</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Nil</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Equal</span><span id = 'Puntuacion'>(</span><span id = 'String'>"1.234568"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>str</span><span id = 'Puntuacion'>)</span>
@@ -38,7 +38,7 @@
 		<span id = 'Variable'>Field</span> <span id = 'Variable'>string</span> <span id = 'String'>`orm:"field"`</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>json</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>TagKey</span><span id = 'Invalido'>:</span> <span id = 'String'>"orm"</span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>str</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>json</span><span id = 'Invalido'>.</span><span id = 'Variable'>MarshalToString</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>TestObject</span><span id = 'Puntuacion'>{</span><span id = 'String'>"hello"</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Nil</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
@@ -46,9 +46,9 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Variable'>Test_read_large_number_as_interface</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>testing</span><span id = 'Invalido'>.</span><span id = 'Variable'>T</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Constante'>var </span><span id = 'Variable'>val</span> <span id = 'Variable'>interface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span>
-	<span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>UseNumber</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>UnmarshalFromString</span><span id = 'Puntuacion'>(</span><span id = 'String'>`123456789123456789123456789`</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>val</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>UseNumber</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true </span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>UnmarshalFromString</span><span id = 'Puntuacion'>(</span><span id = 'String'>`123456789123456789123456789`</span><span id = 'Invalido'>,</span> <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>val</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Nil</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>output</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>MarshalToString</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>val</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Nil</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
@@ -71,7 +71,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Variable'>Test_CaseSensitive</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>testing</span><span id = 'Invalido'>.</span><span id = 'Variable'>T</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
 
 	<span id = 'Variable'>testCases</span> <span id = 'Asignacion'>:=</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>input</span>          <span id = 'Variable'>string</span>
@@ -81,42 +81,42 @@
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"A":"foo","B":"bar"}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","b":"bar"}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>false,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>false </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"foo","b":"bar"}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","b":"bar"}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"foo","b":"bar","C":{"D":10}}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","b":"bar","C":{"D":10}}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"foo","B":"bar","c":{"d":10}}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo"}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"foo","C":{"d":10}}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","C":{}}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"foo","C":{"D":10,"e":{"f":"baz"}}}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","C":{"D":10,"e":{}}}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"foo","C":{"D":10,"e":{"F":"baz"}}}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","C":{"D":10,"e":{"F":"baz"}}}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"A":"foo","c":{"d":10,"E":{"f":"baz"}}}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"a":"foo","C":{"D":10,"e":{"F":"baz"}}}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>false,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>false </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 	<span id = 'Puntuacion'>}</span>
 
@@ -146,7 +146,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Variable'>Test_CaseSensitive_MoreThanTenFields</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>testing</span><span id = 'Invalido'>.</span><span id = 'Variable'>T</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
 
 	<span id = 'Variable'>testCases</span> <span id = 'Asignacion'>:=</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>input</span>          <span id = 'Variable'>string</span>
@@ -156,17 +156,17 @@
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"A":"1","B":"2","C":"3","d":"4","e":"5","f":"6","g":"7","h":"8","i":"9","j":"10","k":"11"}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"A":"1","B":"2","C":"3","d":"4","e":"5","f":"6","g":"7","h":"8","i":"9","j":"10","k":"11"}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"a":"1","b":"2","c":"3","D":"4","E":"5","F":"6"}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"A":"1","B":"2","C":"3","d":"4","e":"5","f":"6"}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>false,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>false </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>{</span>
 			<span id = 'Variable'>input</span><span id = 'Invalido'>:</span>          <span id = 'String'>`{"A":"1","b":"2","d":"4","E":"5"}`</span><span id = 'Invalido'>,</span>
 			<span id = 'Variable'>expectedOutput</span><span id = 'Invalido'>:</span> <span id = 'String'>`{"A":"1","d":"4"}`</span><span id = 'Invalido'>,</span>
-			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true,</span>
+			<span id = 'Variable'>caseSensitive</span><span id = 'Invalido'>:</span>  <span id = 'Constante'>true </span><span id = 'Invalido'>,</span>
 		<span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 	<span id = 'Puntuacion'>}</span>
 
@@ -203,7 +203,7 @@
 <span id = 'Puntuacion'>}</span>
 
 <span id = 'Variable'>func</span> <span id = 'Variable'>Test_OnlyTaggedField</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>testing</span><span id = 'Invalido'>.</span><span id = 'Variable'>T</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
-	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>should</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>require</span><span id = 'Invalido'>.</span><span id = 'Constante'>New </span><span id = 'Puntuacion'>(</span><span id = 'Variable'>t</span><span id = 'Puntuacion'>)</span>
 
 	<span id = 'Variable'>obj</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>onlyTaggedFieldStruct</span><span id = 'Puntuacion'>{</span>
 		<span id = 'Variable'>A</span><span id = 'Invalido'>:</span>      <span id = 'String'>"a"</span><span id = 'Invalido'>,</span>
@@ -216,7 +216,7 @@
 		<span id = 'Variable'>I</span><span id = 'Invalido'>:</span>      <span id = 'Aritmetico'>&amp</span><span id = 'Variable'>I</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>J</span><span id = 'Invalido'>:</span> <span id = 'String'>"j"</span><span id = 'Invalido'>,</span> <span id = 'Variable'>K</span><span id = 'Invalido'>:</span> <span id = 'String'>"k"</span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>,</span>
 	<span id = 'Puntuacion'>}</span>
 
-	<span id = 'Variable'>output</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>OnlyTaggedField</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>Marshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>obj</span><span id = 'Puntuacion'>)</span>
+	<span id = 'Variable'>output</span><span id = 'Invalido'>,</span> <span id = 'Variable'>err</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>jsoniter</span><span id = 'Invalido'>.</span><span id = 'Variable'>Config</span><span id = 'Puntuacion'>{</span><span id = 'Variable'>OnlyTaggedField</span><span id = 'Invalido'>:</span> <span id = 'Constante'>true </span><span id = 'Puntuacion'>}</span><span id = 'Invalido'>.</span><span id = 'Variable'>Froze</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>.</span><span id = 'Variable'>Marshal</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>obj</span><span id = 'Puntuacion'>)</span>
 	<span id = 'Variable'>should</span><span id = 'Invalido'>.</span><span id = 'Variable'>Nil</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>err</span><span id = 'Puntuacion'>)</span>
 
 	<span id = 'Variable'>m</span> <span id = 'Asignacion'>:=</span> <span id = 'Variable'>make</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>map</span><span id = 'Invalido'>[</span><span id = 'Variable'>string</span><span id = 'Invalido'>]</span><span id = 'Variable'>interface</span><span id = 'Puntuacion'>{</span><span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span>
