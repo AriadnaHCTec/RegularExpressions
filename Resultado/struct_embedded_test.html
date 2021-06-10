@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+        <title>Analisis_Lexico</title>
+        <link rel="stylesheet" href="estilo.css" type="text/css">        
+    </head>    
+    <body>
+        <pre><span id = 'Variable'>package</span> <span id = 'Variable'>test</span>
+
+<span id = 'Constante'>func </span><span id = 'Variable'>init</span><span id = 'Puntuacion'>(</span><span id = 'Puntuacion'>)</span> <span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>testCases</span> <span id = 'Asignacion'>=</span> <span id = 'Variable'>append</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>testCases</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedFloat64</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedInt32</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>F1</span> <span id = 'Variable'>float64</span>
+			<span id = 'Variable'>StringMarshaler</span>
+			<span id = 'Variable'>F2</span> <span id = 'Variable'>int32</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedMapStringString</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedFloat64</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedInt32</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedMapStringString</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedSliceString</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedString</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedStruct</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedSliceString</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedString</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedString</span> <span id = 'String'>`json:"othername"`</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>EmbeddedStruct</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+			<span id = 'Variable'>F1</span> <span id = 'Variable'>float64</span>
+			<span id = 'Variable'>StringTextMarshaler</span>
+			<span id = 'Variable'>F2</span> <span id = 'Variable'>int32</span>
+		<span id = 'Puntuacion'>}</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>OverlapDifferentLevels</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>IgnoreDeeperLevel</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>SameLevel1BothTagged</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>SameLevel1NoTags</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>SameLevel1Tagged</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>SameLevel2BothTagged</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>SameLevel2NoTags</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>SameLevel2Tagged</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedPtr</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+		<span id = 'Puntuacion'>(</span><span id = 'Aritmetico'>*</span><span id = 'Variable'>UnnamedLiteral</span><span id = 'Puntuacion'>)</span><span id = 'Puntuacion'>(</span><span id = 'Variable'>nil</span><span id = 'Puntuacion'>)</span><span id = 'Invalido'>,</span>
+	<span id = 'Puntuacion'>)</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedFloat64</span> <span id = 'Variable'>float64</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedInt32</span> <span id = 'Variable'>int32</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedMapStringString</span> <span id = 'Variable'>map</span><span id = 'Invalido'>[</span><span id = 'Variable'>string</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedSliceString</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedString</span> <span id = 'Variable'>string</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedStruct</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>String</span> <span id = 'Variable'>string</span>
+	<span id = 'Variable'>Int</span>    <span id = 'Variable'>int32</span>
+	<span id = 'Constante'>Float </span> <span id = 'Variable'>float64</span>
+	<span id = 'Constante'>Struct </span><span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+		<span id = 'Variable'>X</span> <span id = 'Variable'>string</span>
+	<span id = 'Puntuacion'>}</span>
+	<span id = 'Variable'>Slice</span> <span id = 'Invalido'>[</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span>
+	<span id = 'Variable'>Map</span>   <span id = 'Variable'>map</span><span id = 'Invalido'>[</span><span id = 'Variable'>string</span><span id = 'Invalido'>]</span><span id = 'Variable'>string</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>OverlapDifferentLevelsE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>OverlapDifferentLevelsE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F2</span> <span id = 'Variable'>string</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>OverlapDifferentLevels</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>OverlapDifferentLevelsE1</span>
+	<span id = 'Variable'>OverlapDifferentLevelsE2</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>string</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>IgnoreDeeperLevelDoubleEmbedded</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>IgnoreDeeperLevelE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>IgnoreDeeperLevelDoubleEmbedded</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>IgnoreDeeperLevelE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+	<span id = 'Variable'>IgnoreDeeperLevelDoubleEmbedded</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>IgnoreDeeperLevel</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>IgnoreDeeperLevelE1</span>
+	<span id = 'Variable'>IgnoreDeeperLevelE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1BothTaggedE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1BothTaggedE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1BothTagged</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel1BothTaggedE1</span>
+	<span id = 'Variable'>SameLevel1BothTaggedE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1NoTagsE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1NoTagsE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1NoTags</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel1NoTagsE1</span>
+	<span id = 'Variable'>SameLevel1NoTagsE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1TaggedE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1TaggedE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel1Tagged</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel1TaggedE1</span>
+	<span id = 'Variable'>SameLevel1TaggedE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2BothTaggedDE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2BothTaggedE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2BothTaggedDE1</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// DoubleEmbedded2 TEST ONLY</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2BothTaggedDE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// Embedded2 TEST ONLY</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2BothTaggedE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2BothTaggedDE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2BothTagged</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2BothTaggedE1</span>
+	<span id = 'Variable'>SameLevel2BothTaggedE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2NoTagsDE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2NoTagsE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2NoTagsDE1</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2NoTagsDE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2NoTagsE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2NoTagsDE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2NoTags</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2NoTagsE1</span>
+	<span id = 'Variable'>SameLevel2NoTagsE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// DoubleEmbedded1 TEST ONLY</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2TaggedDE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// Embedded1 TEST ONLY</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2TaggedE1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2TaggedDE1</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// DoubleEmbedded2 TEST ONLY</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2TaggedDE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>F1</span> <span id = 'Variable'>int32</span> <span id = 'String'>`json:"F1"`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Comentario'>// Embedded2 TEST ONLY</span>
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2TaggedE2</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2TaggedDE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>SameLevel2Tagged</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>SameLevel2TaggedE1</span>
+	<span id = 'Variable'>SameLevel2TaggedE2</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedPtrO1</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>O1F</span> <span id = 'Variable'>string</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedPtrOption</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>O1</span> <span id = 'Aritmetico'>*</span><span id = 'Variable'>EmbeddedPtrO1</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>EmbeddedPtr</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>EmbeddedPtrOption</span> <span id = 'String'>`json:","`</span>
+<span id = 'Puntuacion'>}</span>
+
+<span id = 'Constante'>type </span><span id = 'Variable'>UnnamedLiteral</span> <span id = 'Constante'>struct </span><span id = 'Puntuacion'>{</span>
+	<span id = 'Variable'>_</span> <span id = 'Constante'>struct{</span><span id = 'Puntuacion'>}</span>
+<span id = 'Puntuacion'>}</span>        </pre>
+    </body>
+</html>    
