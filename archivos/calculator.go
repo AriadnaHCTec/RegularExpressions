@@ -14,8 +14,8 @@ type Calculator struct {
 }
 
 // New returns new Calculator whose argument is arithmetic expressions to be calculated.
-func New(input string) *Calculator {
-	interpret := new(Calculator)
+func New (input string) *Calculator {
+	interpret := new (Calculator)
 	interpret.input = input
 	lexer := NewLexer(input)
 	interpret.lexer = lexer
@@ -35,7 +35,7 @@ func (c *Calculator) Go() (float64, error) {
 
 func (c *Calculator) eat(TokenType TokenType) error {
 	if c.currentToken().Type != TokenType {
-		return errors.New(
+		return errors.New (
 			fmt.Sprintf(
 				"expected token type %s is not matching currunt token type %s",
 				TokenType,
@@ -53,7 +53,7 @@ func (c *Calculator) currentToken() Token {
 
 func (c *Calculator) value(key string) (float64, error) {
 	if c.context == nil {
-		return 0, errors.New("no context given for variable")
+		return 0, errors.New ("no context given for variable")
 	}
 
 	return c.context.Value(key)

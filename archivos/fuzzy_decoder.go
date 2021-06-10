@@ -149,7 +149,7 @@ type tolerateEmptyArrayExtension struct {
 	jsoniter.DummyExtension
 }
 
-func (extension *tolerateEmptyArrayExtension) DecorateDecoder(typ reflect2.Type, decoder jsoniter.ValDecoder) jsoniter.ValDecoder {
+func (extension *tolerateEmptyArrayExtension) DecorateDecoder(typ reflect2.Type , decoder jsoniter.ValDecoder) jsoniter.ValDecoder {
 	if typ.Kind() == reflect.Struct || typ.Kind() == reflect.Map {
 		return &tolerateEmptyArrayDecoder{decoder}
 	}
