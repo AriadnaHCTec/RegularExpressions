@@ -62,7 +62,7 @@ type KVRaft struct {
 
 //NewKVRaft :
 func NewKVRaft(id int, srvList []string) *KVRaft {
-	kv := new(KVRaft)
+	kv := new (KVRaft)
 	kv.myID = id
 	kv.serverList = srvList
 	kv.log = NewLogData()
@@ -310,7 +310,7 @@ func startServer(serversPort string, myID int, cluster []string) *KVRaft {
 	}
 	kv.l = l
 
-	go func() {
+	go func () {
 		for kv.dead == false {
 			conn, err := kv.l.Accept()
 			if err == nil && kv.dead == false {

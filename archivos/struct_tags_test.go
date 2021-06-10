@@ -82,7 +82,7 @@ func init() {
 			F tm `json:"f,omitempty"`
 		})(nil),
 		(*struct {
-			F struct{} `json:"f,omitempty"` // omitempty is meaningless here
+			F struct {} `json:"f,omitempty"` // omitempty is meaningless here
 		})(nil),
 		(*struct {
 			F sjm `json:"f,omitempty"`
@@ -266,7 +266,7 @@ func (t tm) MarshalText() ([]byte, error) {
 	return []byte(`""`), nil
 }
 
-type sjm struct{}
+type sjm struct {}
 
 func (t *sjm) UnmarshalJSON(b []byte) error {
 	return nil
@@ -276,7 +276,7 @@ func (t sjm) MarshalJSON() ([]byte, error) {
 	return []byte(`""`), nil
 }
 
-type stm struct{}
+type stm struct {}
 
 func (t *stm) UnmarshalText(b []byte) error {
 	return nil

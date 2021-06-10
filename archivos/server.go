@@ -62,7 +62,7 @@ type KVRaft struct {
 
 //NewKVRaft :
 func NewKVRaft(id int, srvList []string) *KVRaft {
-	kv := new(KVRaft)
+	kv := new (KVRaft)
 	kv.myID = id
 	kv.serverList = srvList
 	kv.log = NewLogData()
